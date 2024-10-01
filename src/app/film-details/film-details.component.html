@@ -1,0 +1,25 @@
+@if(film) {
+<div class="wrapper">
+  <div class="details">
+    <h1>{{ film.titre }} ({{ film.annee }})</h1>
+    <div class="film-details-container">
+      <img [src]="film.imageURL" alt=" {{ film.titre }} " />
+      <div class="film-details">
+        <div class="film-description">
+          <h2>Description</h2>
+          <p>
+            {{ film.description }}
+          </p>
+        </div>
+        <div class="film-acteurs">
+          <h2>Acteurs:</h2>
+          <p>{{ film.acteurs.join(", ") }}.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+}@else {
+<h1>Film introuvable!</h1>
+}

@@ -1,5 +1,7 @@
-<div class="film-container">
-  @for(film of films; track film.titre) {
-  <app-film-item [film]="film"></app-film-item>
-  }
+<div class="wrapper">
+  <div class="film-container">
+    @for(film of films; track film.titre) {
+    <app-film-item [film]="film"></app-film-item>
+    }
+  </div>
 </div>
