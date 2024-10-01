@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Film } from '../models/Film';
+import { FilmItemComponent } from '../film-item/film-item.component';
 
 @Component({
   selector: 'app-liste-films',
   standalone: true,
-  imports: [],
+  imports: [FilmItemComponent],
   templateUrl: './liste-films.component.html',
   styleUrl: './liste-films.component.css',
 })

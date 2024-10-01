@@ -1,0 +1,32 @@
+.film > img {
+  height: 300px;
+  width: 225px;
+  margin-bottom: 20px;
+}
+
+.film {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.film button {
+  margin-top: auto;
+  background-color: #0284c7;
+  border: none;
+  border-radius: 10px;
+  height: 40px;
+  width: 70px;
+  color: #fff;
+}
+
+.film .title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+}

@@ -1,11 +1,5 @@
 <div class="film-container">
   @for(film of films; track film.titre) {
-  <div class="film">
-    <h3 class="title">{{ film.titre }}</h3>
-    <p>{{ film.annee }}</p>
-    <img [src]="film.imageURL" alt="" />
-    <p class="description">{{ film.description }}</p>
-    <button>Plus...</button>
-  </div>
+  <app-film-item [film]="film"></app-film-item>
   }
 </div>
