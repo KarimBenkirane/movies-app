@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Film } from '../models/Film';
 import { RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
@@ -12,4 +12,14 @@ import { RouterLink } from '@angular/router';
 })
 export class FilmItemComponent {
   @Input() film!: Film;
+  @Output() selectedFilmTitle = new EventEmitter<string>();
+  @Output() favoriteFilm = new EventEmitter<Film>();
+
+  onClick() {
+    this.selectedFilmTitle.emit(this.film?.titre);
+  }
+
+  onAddFavorite() {
+    this.favoriteFilm.emit(this.film);
+  }
 }

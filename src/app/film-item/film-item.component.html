@@ -1,6 +1,9 @@
 <div class="film">
   <h3 class="title">{{ film.titre }}</h3>
   <p>{{ film.annee }}</p>
-  <img [src]="film.imageURL" alt="" />
-  <a [routerLink]="['/details', film.titre]"><button>Plus...</button></a>
+  <img (click)="onClick()" [src]="film.imageURL" alt="" />
+  <div class="btn-container">
+    <a [routerLink]="['/details', film.titre]"><button>Plus...</button></a>
+    <button (click)="onAddFavorite()">Favori</button>
+  </div>
 </div>

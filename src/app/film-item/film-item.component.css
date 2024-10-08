@@ -15,7 +15,6 @@
 }
 
 .film button {
-  margin-top: auto;
   background-color: #0284c7;
   border: none;
   border-radius: 10px;
@@ -29,4 +28,10 @@
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
+}
+
+.btn-container {
+  margin-top: auto;
+  display: flex;
+  gap: 20px;
 }

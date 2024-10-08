@@ -1,0 +1,26 @@
+.navbar {
+  display: flex;
+  background-color: #0284c7;
+  padding: 10px 20px;
+  justify-content: space-between; /* Ensures space between title and links */
+  align-items: center; /* Vertically centers items in the navbar */
+  width: 100%;
+}
+
+.title {
+  color: #fff;
+  flex-shrink: 0; /* Prevents title from shrinking */
+}
+
+.links {
+  display: flex;
+  gap: 80px;
+  justify-content: center;
+  flex-grow: 1; /* Allows links to grow and center in the remaining space */
+}
+
+.links > a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.1rem;
+}
