@@ -14,7 +14,6 @@ import { NavbarComponent } from '../navbar/navbar.component';
 export class ListeFilmsComponent implements OnInit {
   films: Film[] = [];
   filmsHelper = inject(FilmsHelperService);
-  favoriteFilms: Film[] = [];
 
   constructor() {}
 
@@ -27,11 +26,11 @@ export class ListeFilmsComponent implements OnInit {
   }
 
   addToFavorite(film: Film) {
-    this.favoriteFilms.push(film);
+    this.filmsHelper.addToFavorites(film);
   }
 
   getFavoriteCount() {
-    return this.favoriteFilms.length;
+    return this.filmsHelper.getFavoriteCount();
   }
 
   filterFilms(searchInput: string) {

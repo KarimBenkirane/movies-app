@@ -5,6 +5,16 @@ import { Film } from './models/Film';
   providedIn: 'root',
 })
 export class FilmsHelperService {
+  favoriteFilms: Film[] = [];
+
+  getFavoriteCount(): number {
+    return this.favoriteFilms.length;
+  }
+
+  addToFavorites(film: Film) {
+    this.favoriteFilms.push(film);
+  }
+
   getFilmByTitre(titre: string): Film | undefined {
     return this.getAllFilms().find((elt) => elt.titre === titre);
   }
