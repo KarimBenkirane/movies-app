@@ -35,3 +35,10 @@
   display: flex;
   gap: 20px;
 }
+
+.nouveaute {
+  background-color: #3b82f6;
+  border-radius: 10px;
+  color: #fff;
+  width: 900px;
+}

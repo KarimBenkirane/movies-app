@@ -16,11 +16,18 @@
   display: flex;
   gap: 80px;
   justify-content: center;
-  flex-grow: 1; /* Allows links to grow and center in the remaining space */
 }
 
 .links > a {
   text-decoration: none;
   color: #fff;
   font-size: 1.1rem;
+}
+
+.title {
+  text-decoration: none;
+}
+
+* {
+  font-family: Poppins, sans-serif;
 }

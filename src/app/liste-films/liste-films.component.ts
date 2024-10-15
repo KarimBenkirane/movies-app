@@ -33,4 +33,12 @@ export class ListeFilmsComponent implements OnInit {
   getFavoriteCount() {
     return this.favoriteFilms.length;
   }
+
+  filterFilms(searchInput: string) {
+    this.films = this.filmsHelper
+      .getAllFilms()
+      .filter((film) =>
+        film.titre.toLowerCase().includes(searchInput.toLowerCase())
+      );
+  }
 }

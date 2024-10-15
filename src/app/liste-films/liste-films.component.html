@@ -1,4 +1,7 @@
-<app-navbar [favoriteCount]="getFavoriteCount()"></app-navbar>
+<app-navbar
+  [favoriteCount]="getFavoriteCount()"
+  (searchedText)="filterFilms($event)"
+></app-navbar>
 <div class="wrapper">
   <div class="film-container">
     @for(film of films; track film.titre) {

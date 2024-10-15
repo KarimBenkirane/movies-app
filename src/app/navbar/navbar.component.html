@@ -1,8 +1,15 @@
 <div class="navbar">
-  <div class="title"><h3>FilmsList</h3></div>
+  <div class="title">
+    <a class="title" href="/"><h3>FilmsList</h3></a>
+  </div>
   <div class="links">
     <a href="#">Accueil</a>
     <a href="#">Favoris ({{ favoriteCount }})</a>
     <a href="#">Connexion</a>
+    <div class="search-film">
+      <app-search-film
+        (searchInput)="sendToListFilms($event)"
+      ></app-search-film>
+    </div>
   </div>
 </div>

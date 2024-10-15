@@ -1,6 +1,10 @@
 <div class="film">
   <h3 class="title">{{ film.titre }}</h3>
+  @if(film.annee === getYear()) {
+  <p>{{ film.annee }} <span class="nouveaute">NEW!</span></p>
+  }@else {
   <p>{{ film.annee }}</p>
+  }
   <img (click)="onClick()" [src]="film.imageURL" alt="" />
   <div class="btn-container">
     <a [routerLink]="['/details', film.titre]"><button>Plus...</button></a>

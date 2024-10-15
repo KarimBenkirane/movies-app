@@ -22,4 +22,8 @@ export class FilmItemComponent {
   onAddFavorite() {
     this.favoriteFilm.emit(this.film);
   }
+
+  getYear(): number {
+    return new Date().getFullYear();
+  }
 }

@@ -13,7 +13,7 @@ export class FilmsHelperService {
     return [
       new Film(
         'Les Évadés',
-        1994,
+        2024,
         "Le banquier Andy Dufresne est arrêté pour avoir tué sa femme et son amant. Après une dure adaptation, il tente d'améliorer les conditions de la prison et de redonner de l'espoir à ses compagnons.",
         'https://fr.web.img2.acsta.net/r_1920_1080/pictures/22/06/02/09/19/1433868.jpg',
         [
