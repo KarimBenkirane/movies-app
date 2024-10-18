@@ -4,11 +4,17 @@ import { FilmsHelperService } from '../films-helper.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Film } from '../models/Film';
 import { BorderCardDirective } from '../border-card.directive';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-liste-films',
   standalone: true,
-  imports: [FilmItemComponent, NavbarComponent, BorderCardDirective],
+  imports: [
+    FilmItemComponent,
+    NavbarComponent,
+    BorderCardDirective,
+    RouterLink,
+  ],
   templateUrl: './liste-films.component.html',
   styleUrl: './liste-films.component.css',
 })

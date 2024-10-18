@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { Film } from '../models/Film';
 import { DatePipe } from '@angular/common';
@@ -18,4 +18,10 @@ export class FilmItemComponent {
   @Input() film!: Film;
   baseUrl = 'https://image.tmdb.org/t/p/w300';
   faStar = faStar;
+
+  constructor(private router: Router) {}
+
+  goToDetails(filmId: number) {
+    this.router.navigate(['/details', filmId]);
+  }
 }

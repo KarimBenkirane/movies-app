@@ -1,13 +1,14 @@
 <div class="film-item">
   <h3>{{ film.title }}</h3>
   <p>
-    {{ film.release_date | date }} | <fa-icon [icon]="faStar"></fa-icon>
-    {{ film.vote_average | number : "1.2-2" }} ({{ film.vote_count }})
+    {{ film.release_date | date }} |
+    <fa-icon class="star" [icon]="faStar"></fa-icon>
+    {{ film.vote_average | number : "1.1-1" }} ({{ film.vote_count }})
   </p>
 
   <img [src]="baseUrl + film.poster_path" alt="" />
   <div class="btn-container">
-    <button>Plus...</button>
+    <button (click)="goToDetails(film.id)">Plus...</button>
     <button>Favori</button>
   </div>
 </div>

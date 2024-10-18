@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { FilmDetailsComponent } from './film-details/film-details.component';
 import { ListeFilmsComponent } from './liste-films/liste-films.component';
+import { ConnexionComponent } from './connexion/connexion.component';
 
 export const routes: Routes = [
   {
@@ -8,7 +9,11 @@ export const routes: Routes = [
     component: ListeFilmsComponent,
   },
   {
-    path: 'details/:titre',
+    path: 'details/:id',
     component: FilmDetailsComponent,
+  },
+  {
+    path: 'connexion',
+    component: ConnexionComponent,
   },
 ];

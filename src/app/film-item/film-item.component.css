@@ -8,6 +8,7 @@
   border-radius: 20px;
   border: 2px solid transparent;
   text-align: center;
+  transition: border 1s ease, border-radius 0.3s ease; /* Add transition */
 }
 
 .film-item > img {
@@ -22,9 +23,25 @@
   gap: 10px;
 }
 
+button {
+  outline: none;
+  border: none;
+  color: #fff;
+  background-color: var(--blue-main);
+  border-radius: 10px;
+  height: 35px;
+  width: 80px;
+  text-align: center;
+  font-size: 1.15rem;
+}
+
 .film-item h3 {
   overflow: hidden; /* Hide the overflow */
   white-space: nowrap; /* Prevent the text from wrapping to the next line */
   text-overflow: ellipsis; /* Show ellipsis (...) when the text overflows */
   width: 100%; /* Ensure the title takes the full width of its container */
+}
+
+.star {
+  color: var(--blue-main);
 }

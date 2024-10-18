@@ -1,4 +1,10 @@
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
 .navbar {
+  font-family: Poppins, sans-serif;
   display: flex;
   background-color: #0284c7;
   padding: 10px 20px;
@@ -7,27 +13,8 @@
   width: 100%;
 }
 
-.title {
-  color: #fff;
-  flex-shrink: 0; /* Prevents title from shrinking */
-}
-
 .links {
   display: flex;
+  font-size: 1.15 rem;
   gap: 80px;
-  justify-content: center;
-}
-
-.links > a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 1.1rem;
-}
-
-.title {
-  text-decoration: none;
-}
-
-* {
-  font-family: Poppins, sans-serif;
 }
