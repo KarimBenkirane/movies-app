@@ -11,5 +11,4 @@ import { ListeFilmsComponent } from './liste-films/liste-films.component';
 })
 export class AppComponent {
   title = 'my-app';
-  filliere = 'GISIBA';
 }

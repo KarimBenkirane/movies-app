@@ -15,6 +15,9 @@ a {
 
 .links {
   display: flex;
-  font-size: 1.15 rem;
   gap: 80px;
+}
+
+.links > a {
+  font-size: 1.15rem;
 }
