@@ -1,13 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Film } from '../models/Film';
 import { FilmItemComponent } from '../film-item/film-item.component';
 import { FilmsHelperService } from '../films-helper.service';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { Film } from '../models/Film';
+import { BorderCardDirective } from '../border-card.directive';
 
 @Component({
   selector: 'app-liste-films',
   standalone: true,
-  imports: [FilmItemComponent, NavbarComponent],
+  imports: [FilmItemComponent, NavbarComponent, BorderCardDirective],
   templateUrl: './liste-films.component.html',
   styleUrl: './liste-films.component.css',
 })
@@ -18,26 +19,10 @@ export class ListeFilmsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.films = this.filmsHelper.getAllFilms();
-  }
+    this.filmsHelper.getAllFilms().subscribe((response: any) => {
+      this.films = response.results;
+    });
 
-  afficherTitreFilm(titre: string) {
-    alert(titre);
-  }
-
-  addToFavorite(film: Film) {
-    this.filmsHelper.addToFavorites(film);
-  }
-
-  getFavoriteCount() {
-    return this.filmsHelper.getFavoriteCount();
-  }
-
-  filterFilms(searchInput: string) {
-    this.films = this.filmsHelper
-      .getAllFilms()
-      .filter((film) =>
-        film.titre.toLowerCase().includes(searchInput.toLowerCase())
-      );
+    console.log(this.films);
   }
 }

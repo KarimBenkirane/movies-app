@@ -1,15 +1,6 @@
-<app-navbar
-  [favoriteCount]="getFavoriteCount()"
-  (searchedText)="filterFilms($event)"
-></app-navbar>
-<div class="wrapper">
-  <div class="film-container">
-    @for(film of films; track film.titre) {
-    <app-film-item
-      [film]="film"
-      (selectedFilmTitle)="afficherTitreFilm(film.titre)"
-      (favoriteFilm)="addToFavorite(film)"
-    ></app-film-item>
-    }
-  </div>
+<app-navbar></app-navbar>
+<div class="film-container">
+  @for (film of films; track film.id) {
+  <app-film-item appBorderCard [film]="film"></app-film-item>
+  }
 </div>
