@@ -1,3 +1,11 @@
+.wrapper {
+  font-family: Poppins, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}
+
 .login-container {
   display: flex;
   flex-direction: column;
@@ -7,14 +15,6 @@
   justify-content: center;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
   border-radius: 20px;
-}
-
-.wrapper {
-  font-family: Poppins, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 90%;
 }
 
 #email,
@@ -62,4 +62,8 @@ label[for="remember"] {
 a {
   text-decoration: none;
   color: var(--blue-main);
+}
+
+p {
+  margin: 0;
 }
