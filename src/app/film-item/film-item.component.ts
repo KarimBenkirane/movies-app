@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { Film } from '../models/Film';
@@ -9,6 +9,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-film-item',
@@ -27,14 +28,27 @@ export class FilmItemComponent {
   faHeartRegular = faHeartRegular;
   faEllipsis = faEllipsis;
 
+  snackBar = inject(MatSnackBar);
+
   constructor(private router: Router) {}
 
   goToDetails(filmId: number) {
     this.router.navigate(['/details', filmId]);
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
   toggleFavorite(film: Film) {
     this.toggledFavorite.emit(film);
     this.favorite = !this.favorite;
+    if (this.favorite) {
+      this.openSnackBar('Film ajouté aux favoris!', 'OK !');
+    } else {
+      this.openSnackBar('Film retiré des favoris!', 'OK !');
+    }
   }
 }

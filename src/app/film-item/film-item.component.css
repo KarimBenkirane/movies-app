@@ -8,7 +8,6 @@
   border-radius: 20px;
   border: 2px solid transparent;
   text-align: center;
-  transition: border 1s ease, border-radius 0.3s ease; /* Add transition */
 }
 
 .film-item > img {
@@ -48,7 +47,7 @@ button {
 
 .icon {
   color: var(--blue-main);
-  font-size: 1.6rem;
+  font-size: 1.7rem;
 }
 
 .icon:hover {
