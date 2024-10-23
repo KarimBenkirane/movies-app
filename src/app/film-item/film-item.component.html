@@ -9,6 +9,10 @@
   <img [src]="baseUrl + film.poster_path" alt="" />
   <div class="btn-container">
     <button (click)="goToDetails(film.id)">Plus...</button>
-    <button>Favori</button>
+    @if(!favorite) {
+    <button (click)="toggleFavorite(film)">Favori</button>
+    }@else {
+    <button (click)="toggleFavorite(film)">Retirer</button>
+    }
   </div>
 </div>

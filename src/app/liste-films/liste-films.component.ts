@@ -21,6 +21,7 @@ import { Router, RouterLink } from '@angular/router';
 export class ListeFilmsComponent implements OnInit {
   films: Film[] = [];
   filmsHelper = inject(FilmsHelperService);
+  favoriteFilms: Film[] = [];
 
   constructor() {}
 
@@ -28,7 +29,13 @@ export class ListeFilmsComponent implements OnInit {
     this.filmsHelper.getAllFilms().subscribe((response: any) => {
       this.films = response.results;
     });
+  }
 
-    console.log(this.films);
+  toggleFavorite(film: Film) {
+    if (this.favoriteFilms.includes(film)) {
+      this.favoriteFilms = this.favoriteFilms.filter((elt) => elt != film);
+    } else {
+      this.favoriteFilms.push(film);
+    }
   }
 }

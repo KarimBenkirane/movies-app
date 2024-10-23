@@ -1,6 +1,10 @@
-<app-navbar></app-navbar>
+<app-navbar [favCount]="this.favoriteFilms.length"></app-navbar>
 <div class="film-container">
   @for (film of films; track film.id) {
-  <app-film-item appBorderCard [film]="film"></app-film-item>
+  <app-film-item
+    (toggledFavorite)="toggleFavorite(film)"
+    appBorderCard
+    [film]="film"
+  ></app-film-item>
   }
 </div>

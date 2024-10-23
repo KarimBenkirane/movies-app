@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { Film } from '../models/Film';
@@ -18,10 +18,17 @@ export class FilmItemComponent {
   @Input() film!: Film;
   baseUrl = 'https://image.tmdb.org/t/p/w300';
   faStar = faStar;
+  @Output() toggledFavorite = new EventEmitter();
+  favorite = false;
 
   constructor(private router: Router) {}
 
   goToDetails(filmId: number) {
     this.router.navigate(['/details', filmId]);
+  }
+
+  toggleFavorite(film: Film) {
+    this.toggledFavorite.emit(film);
+    this.favorite = !this.favorite;
   }
 }
