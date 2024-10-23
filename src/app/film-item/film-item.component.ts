@@ -6,6 +6,9 @@ import { DatePipe } from '@angular/common';
 import { DecimalPipe } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-film-item',
@@ -17,9 +20,12 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 export class FilmItemComponent {
   @Input() film!: Film;
   baseUrl = 'https://image.tmdb.org/t/p/w300';
-  faStar = faStar;
   @Output() toggledFavorite = new EventEmitter();
   favorite = false;
+  faStar = faStar;
+  faHeartSolid = faHeartSolid;
+  faHeartRegular = faHeartRegular;
+  faEllipsis = faEllipsis;
 
   constructor(private router: Router) {}
 

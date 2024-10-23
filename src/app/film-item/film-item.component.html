@@ -7,12 +7,24 @@
   </p>
 
   <img [src]="baseUrl + film.poster_path" alt="" />
-  <div class="btn-container">
-    <button (click)="goToDetails(film.id)">Plus...</button>
+  <div class="icon-container">
+    <fa-icon
+      class="icon"
+      (click)="goToDetails(film.id)"
+      [icon]="faEllipsis"
+    ></fa-icon>
     @if(!favorite) {
-    <button (click)="toggleFavorite(film)">Favori</button>
+    <fa-icon
+      class="icon"
+      (click)="toggleFavorite(film)"
+      [icon]="faHeartRegular"
+    ></fa-icon>
     }@else {
-    <button (click)="toggleFavorite(film)">Retirer</button>
+    <fa-icon
+      class="icon"
+      (click)="toggleFavorite(film)"
+      [icon]="faHeartSolid"
+    ></fa-icon>
     }
   </div>
 </div>

@@ -17,10 +17,10 @@
   border-radius: 15px;
 }
 
-.btn-container {
+.icon-container {
   display: flex;
   margin-top: 20px;
-  gap: 10px;
+  gap: 20px;
 }
 
 button {
@@ -44,4 +44,13 @@ button {
 
 .star {
   color: var(--blue-main);
+}
+
+.icon {
+  color: var(--blue-main);
+  font-size: 1.6rem;
+}
+
+.icon:hover {
+  cursor: pointer;
 }
