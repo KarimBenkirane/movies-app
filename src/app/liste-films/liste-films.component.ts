@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FilmItemComponent } from '../film-item/film-item.component';
 import { FilmsHelperService } from '../films-helper.service';
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -19,23 +19,25 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './liste-films.component.css',
 })
 export class ListeFilmsComponent implements OnInit {
-  films: Film[] = [];
+  @Input() films: Film[] = [];
   filmsHelper = inject(FilmsHelperService);
-  favoriteFilms: Film[] = [];
+  @Input() displayFavorites: boolean = false;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.filmsHelper.getAllFilms().subscribe((response: any) => {
-      this.films = response.results;
-    });
+    if (!this.displayFavorites) {
+      this.filmsHelper.getAllFilms().subscribe((response: any) => {
+        this.films = response.results;
+      });
+    }
+  }
+
+  isFavorite(film: Film): boolean {
+    return this.filmsHelper.getFavoriteFilms().includes(film);
   }
 
   toggleFavorite(film: Film) {
-    if (this.favoriteFilms.includes(film)) {
-      this.favoriteFilms = this.favoriteFilms.filter((elt) => elt != film);
-    } else {
-      this.favoriteFilms.push(film);
-    }
+    this.filmsHelper.toggleFavorite(film);
   }
 }

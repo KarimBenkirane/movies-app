@@ -1,9 +1,17 @@
 .film-container {
   margin-top: 30px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 50px 50px;
   padding: 20px 50px;
   font-family: Poppins;
   width: 100%;
+}
+
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  font-family: Poppins;
 }

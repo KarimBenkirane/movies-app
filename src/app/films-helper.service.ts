@@ -7,16 +7,19 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FilmsHelperService {
   favoriteFilms: Film[] = [];
-  films: Film[] = [];
 
   constructor(private httpClient: HttpClient) {}
 
-  getFavoriteCount(): number {
-    return this.favoriteFilms.length;
+  getFavoriteFilms(): Film[] {
+    return this.favoriteFilms;
   }
 
-  addToFavorites(film: Film) {
-    this.favoriteFilms.push(film);
+  toggleFavorite(film: Film) {
+    if (this.favoriteFilms.includes(film)) {
+      this.favoriteFilms = this.favoriteFilms.filter((elt) => elt != film);
+    } else {
+      this.favoriteFilms.push(film);
+    }
   }
 
   getAllFilms() {

@@ -1,10 +1,20 @@
-<app-navbar [favCount]="this.favoriteFilms.length"></app-navbar>
+<app-navbar
+  [favCount]="this.filmsHelper.getFavoriteFilms().length"
+></app-navbar>
+
+@if(films.length !== 0) {
 <div class="film-container">
   @for (film of films; track film.id) {
   <app-film-item
     (toggledFavorite)="toggleFavorite(film)"
     appBorderCard
     [film]="film"
+    [favorite]="isFavorite(film)"
   ></app-film-item>
   }
 </div>
+}@else {
+<div class="not-found">
+  <h3>Aucun film trouvé !</h3>
+</div>
+}

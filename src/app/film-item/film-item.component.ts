@@ -1,4 +1,11 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { Film } from '../models/Film';
@@ -10,6 +17,7 @@ import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FilmsHelperService } from '../films-helper.service';
 
 @Component({
   selector: 'app-film-item',
@@ -20,9 +28,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class FilmItemComponent {
   @Input() film!: Film;
-  baseUrl = 'https://image.tmdb.org/t/p/w300';
+  baseUrl = 'https://image.tmdb.org/t/p/w500';
   @Output() toggledFavorite = new EventEmitter();
-  favorite = false;
+  filmsHelper = inject(FilmsHelperService);
+
+  @Input() favorite: boolean = false;
+
   faStar = faStar;
   faHeartSolid = faHeartSolid;
   faHeartRegular = faHeartRegular;
