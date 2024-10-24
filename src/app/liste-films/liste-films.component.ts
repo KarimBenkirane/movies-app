@@ -34,7 +34,7 @@ export class ListeFilmsComponent implements OnInit {
   }
 
   isFavorite(film: Film): boolean {
-    return this.filmsHelper.getFavoriteFilms().includes(film);
+    return this.filmsHelper.getFavoriteFilms().some((f) => f.id === film.id);
   }
 
   toggleFavorite(film: Film) {

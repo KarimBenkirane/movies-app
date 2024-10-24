@@ -15,7 +15,7 @@ export class FilmsHelperService {
   }
 
   toggleFavorite(film: Film) {
-    if (this.favoriteFilms.includes(film)) {
+    if (this.favoriteFilms.some((f) => f.id === film.id)) {
       this.favoriteFilms = this.favoriteFilms.filter((elt) => elt != film);
     } else {
       this.favoriteFilms.push(film);
