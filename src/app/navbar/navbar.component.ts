@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FilmsHelperService } from '../films-helper.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,5 +10,10 @@ import { RouterLink } from '@angular/router';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  @Input() favCount = 0;
+  favCount = 0;
+  filmsHelper = inject(FilmsHelperService);
+
+  constructor() {
+    this.favCount = this.filmsHelper.getFavoriteFilms().length;
+  }
 }
