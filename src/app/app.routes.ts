@@ -4,6 +4,7 @@ import { ListeFilmsComponent } from './liste-films/liste-films.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FavoriteFilmsComponent } from './favorite-films/favorite-films.component';
+import { InscriptionComponent } from './inscription/inscription.component';
 
 export const routes: Routes = [
   {
@@ -13,6 +14,10 @@ export const routes: Routes = [
   {
     path: 'details/:id',
     component: FilmDetailsComponent,
+  },
+  {
+    path: 'inscription',
+    component: InscriptionComponent,
   },
   {
     path: 'connexion',

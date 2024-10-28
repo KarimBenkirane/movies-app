@@ -3,7 +3,14 @@
 <div class="wrapper">
   <form>
     <div class="login-container">
-      <h3>Connexion</h3>
+      <h3>Inscription</h3>
+      <input
+        id="username"
+        name="username"
+        type="text"
+        placeholder="username"
+        required
+      />
       <input
         id="email"
         name="email"
@@ -18,13 +25,16 @@
         placeholder="*********"
         required
       />
-      <div class="remember-container">
-        <input type="checkbox" id="remember" class="remember" />
-        <label for="remember">Se souvenir de moi</label>
-      </div>
+      <input
+        id="confirmpassword"
+        name="confirmpassword"
+        type="password"
+        placeholder="*********"
+        required
+      />
       <p>
-        Vous n'avez pas de compte ?
-        <a routerLink="/inscription">Créez en un ici</a>
+        Vous avez déjà un compte ?
+        <a routerLink="/connexion">Connectez-vous ici</a>
       </p>
       <button>Se connecter</button>
     </div>

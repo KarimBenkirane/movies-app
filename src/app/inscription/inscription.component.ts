@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterLink } from '@angular/router';
-
 @Component({
-  selector: 'app-connexion',
+  selector: 'app-inscription',
   standalone: true,
   imports: [NavbarComponent, RouterLink],
-  templateUrl: './connexion.component.html',
-  styleUrl: './connexion.component.css',
+  templateUrl: './inscription.component.html',
+  styleUrl: './inscription.component.css',
 })
-export class ConnexionComponent {}
+export class InscriptionComponent {}
