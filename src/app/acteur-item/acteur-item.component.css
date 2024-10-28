@@ -1,0 +1,19 @@
+.acteur-item img {
+  min-width: 138px;
+  min-height: 175px;
+  width: 138px;
+  height: 175px;
+}
+
+.acteur-item {
+  height: 370px;
+}
+
+mat-card-content {
+  margin-top: 10px;
+}
+
+mat-card-content > p:first-child {
+  font-weight: bold;
+  font-size: 1.2rem;
+}

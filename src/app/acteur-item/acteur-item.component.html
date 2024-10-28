@@ -1,0 +1,11 @@
+<mat-card class="acteur-item" appearance="outlined">
+  <img
+    mat-card-image
+    [src]="this.profileUrl + this.acteur.profile_path"
+    [alt]="'Photo of ' + acteur.name"
+  />
+  <mat-card-content>
+    <p>{{ acteur.name }}</p>
+    <p>{{ acteur.character }}</p>
+  </mat-card-content>
+</mat-card>

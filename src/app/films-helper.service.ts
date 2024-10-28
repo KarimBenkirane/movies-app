@@ -25,8 +25,8 @@ export class FilmsHelperService {
     }
   }
 
-  getAllFilms() {
-    return this.httpClient.get<Film[]>(
+  getAllFilms(): Observable<any> {
+    return this.httpClient.get<any>(
       `https://api.themoviedb.org/3/movie/popular?api_key=${this.API_KEY}&language=fr-FR&include_adult=false`
     );
   }
@@ -34,6 +34,12 @@ export class FilmsHelperService {
   getFilmById(id: number): Observable<Film> {
     return this.httpClient.get<Film>(
       `https://api.themoviedb.org/3/movie/${id}?api_key=${this.API_KEY}&language=fr-FR`
+    );
+  }
+
+  getFilmCreditsById(id: number): Observable<any> {
+    return this.httpClient.get<any>(
+      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${this.API_KEY}`
     );
   }
 }

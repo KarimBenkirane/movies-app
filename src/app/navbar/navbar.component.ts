@@ -10,7 +10,7 @@ import { FilmsHelperService } from '../films-helper.service';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  favCount = 0;
+  @Input() favCount = 0;
   filmsHelper = inject(FilmsHelperService);
 
   constructor() {

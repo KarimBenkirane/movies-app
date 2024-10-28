@@ -19,3 +19,21 @@
 em {
   color: gray;
 }
+
+.synopsis {
+  margin-top: 20px;
+}
+
+.details-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.acteurs,
+.trailer {
+  padding: 20px 100px 0px 100px;
+}
+
+.trailer {
+  margin-top: 30px;
+}

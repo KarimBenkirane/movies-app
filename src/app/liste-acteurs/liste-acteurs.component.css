@@ -1,0 +1,25 @@
+.actors-container {
+  display: flex;
+  align-items: center;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  gap: 20px;
+}
+
+.actors-container::-webkit-scrollbar {
+  height: 10px; /* Width of the scrollbar */
+  width: 10px;
+}
+
+.actors-container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background of the scrollbar track */
+}
+
+.actors-container::-webkit-scrollbar-thumb {
+  background: var(--blue-main); /* Color of the scrollbar handle */
+  border-radius: 10px; /* Rounded corners for the scrollbar handle */
+}
+
+.actors-container::-webkit-scrollbar-thumb:hover {
+  background: var(--blue-main); /* Color when hovered */
+}
