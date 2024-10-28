@@ -1,7 +1,27 @@
 .film-details-container {
+  position: relative;
   display: flex;
   gap: 50px;
   padding: 50px 100px;
+  background-color: rgba(0, 107, 160, 0.66);
+  color: #fff;
+}
+
+.backdrop {
+  z-index: -3;
+  position: absolute;
+  top: 0; /* Align to the top of the container */
+  left: 0; /* Align to the left of the container */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: hidden; /* Hide overflow if the image is too large */
+}
+
+.backdrop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .poster {
@@ -17,7 +37,8 @@
 }
 
 em {
-  color: gray;
+  color: rgb(233, 231, 231);
+  font-size: 1.15rem;
 }
 
 .synopsis {
@@ -31,7 +52,7 @@ em {
 
 .acteurs,
 .trailer {
-  padding: 20px 100px 0px 100px;
+  padding: 40px 100px 0px 100px;
 }
 
 .trailer {

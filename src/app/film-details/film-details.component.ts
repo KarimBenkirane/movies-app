@@ -35,6 +35,7 @@ export class FilmDetailsComponent implements OnInit {
   faStar = faStar;
 
   posterUrl = 'https://image.tmdb.org/t/p/w500';
+  backdropUrl = 'https://image.tmdb.org/t/p/w1280/';
 
   ngOnInit(): void {
     this.filmsHelper.getFilmById(this.filmId).subscribe((film: Film) => {

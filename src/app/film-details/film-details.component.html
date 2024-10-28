@@ -1,5 +1,10 @@
 <app-navbar></app-navbar>
 <div class="film-details-container">
+  @if(film?.backdrop_path) {
+  <div class="backdrop">
+    <img [src]="backdropUrl + film?.backdrop_path" alt="Backdrop" />
+  </div>
+  }
   <div class="img-container">
     <img class="poster" [src]="posterUrl + film?.poster_path" alt="Poster" />
   </div>
