@@ -8,7 +8,6 @@
 
 .actors-container::-webkit-scrollbar {
   height: 10px; /* Width of the scrollbar */
-  width: 10px;
 }
 
 .actors-container::-webkit-scrollbar-track {
@@ -21,5 +20,5 @@
 }
 
 .actors-container::-webkit-scrollbar-thumb:hover {
-  background: var(--blue-main); /* Color when hovered */
+  background: #00679b; /* Color when hovered */
 }
