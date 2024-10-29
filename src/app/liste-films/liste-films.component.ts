@@ -33,10 +33,6 @@ export class ListeFilmsComponent implements OnInit {
     }
   }
 
-  isFavorite(film: Film): boolean {
-    return this.filmsHelper.getFavoriteFilms().some((f) => f.id === film.id);
-  }
-
   toggleFavorite(film: Film) {
     this.filmsHelper.toggleFavorite(film);
   }

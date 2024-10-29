@@ -41,12 +41,13 @@
   <h3>Têtes d'affiche</h3>
   <app-liste-acteurs [acteurs]="this.actors"></app-liste-acteurs>
 </div>
+@if(this.trailerKey) {
 <footer class="trailer">
   <h3>Bande Annonce</h3>
   <iframe
     width="695"
     height="391"
-    src="https://www.youtube.com/embed/u9Mv98Gr5pY"
+    [src]="this.sanitizedTrailerUrl"
     [title]="film?.title"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -54,3 +55,4 @@
     allowfullscreen
   ></iframe>
 </footer>
+}

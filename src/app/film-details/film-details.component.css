@@ -71,6 +71,7 @@ em {
 
 .trailer {
   margin-top: 40px;
+  padding-top: 0px;
   background-color: var(--blue-main);
   color: #fff;
   display: flex;
@@ -78,6 +79,7 @@ em {
   justify-content: center;
   align-items: center;
   padding-bottom: 40px;
+  gap: 40px;
 }
 
 .acteurs > h3 {
@@ -87,4 +89,8 @@ em {
 .trailer > h3 {
   align-self: flex-start;
   margin-bottom: 20px;
+}
+
+footer {
+  height: 100vh;
 }

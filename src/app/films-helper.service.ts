@@ -17,6 +17,10 @@ export class FilmsHelperService {
     return this.favoriteFilms;
   }
 
+  isFavorite(film: Film): boolean {
+    return this.getFavoriteFilms().some((f) => f.id === film.id);
+  }
+
   toggleFavorite(film: Film) {
     if (this.favoriteFilms.some((f) => f.id === film.id)) {
       this.favoriteFilms = this.favoriteFilms.filter((elt) => elt != film);
@@ -40,6 +44,12 @@ export class FilmsHelperService {
   getFilmCreditsById(id: number): Observable<any> {
     return this.httpClient.get<any>(
       `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${this.API_KEY}`
+    );
+  }
+
+  getTrailerById(id: number): Observable<any> {
+    return this.httpClient.get<any>(
+      `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${this.API_KEY}`
     );
   }
 }

@@ -9,6 +9,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { DecimalPipe } from '@angular/common';
 import { Cast } from '../models/Cast';
 import { ListeActeursComponent } from '../liste-acteurs/liste-acteurs.component';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-film-details',
@@ -31,6 +32,9 @@ export class FilmDetailsComponent implements OnInit {
   film!: Film | undefined;
   cast: Cast[] = [];
   actors: Cast[] = [];
+  trailerKey: string = '';
+  sanitizedTrailerUrl: SafeResourceUrl | null = null;
+  sanitizer: DomSanitizer = inject(DomSanitizer);
 
   faStar = faStar;
 
@@ -53,9 +57,20 @@ export class FilmDetailsComponent implements OnInit {
         }
       });
 
-    console.log(this.film);
-    console.log(this.cast);
-    console.log(this.actors);
+    this.filmsHelper.getTrailerById(this.filmId).subscribe((response: any) => {
+      let trailer = response.results.find(
+        (elt: any) =>
+          elt.type === 'Trailer' && elt.official && elt.site === 'YouTube'
+      );
+      this.trailerKey = trailer.key;
+
+      if (this.trailerKey) {
+        this.sanitizedTrailerUrl =
+          this.sanitizer.bypassSecurityTrustResourceUrl(
+            'https://www.youtube.com/embed/' + this.trailerKey
+          );
+      }
+    });
   }
 
   getDuration(runtime: number | undefined): string {
