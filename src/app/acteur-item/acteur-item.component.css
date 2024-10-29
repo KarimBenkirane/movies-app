@@ -6,7 +6,8 @@
 }
 
 .acteur-item {
-  height: 370px;
+  height: 390px;
+  width: 140px;
 }
 
 mat-card-content {
