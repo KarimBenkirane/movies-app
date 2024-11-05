@@ -1,0 +1,26 @@
+.comment-item {
+  display: flex;
+  border: 1px solid black;
+  gap: 10px;
+}
+
+.profile-infos {
+  width: 70px;
+  flex-shrink: 0;
+}
+
+.comment-item img {
+  height: 88px;
+  width: 70px;
+  border-radius: 10px;
+}
+
+.username {
+  font-size: 1.2rem;
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

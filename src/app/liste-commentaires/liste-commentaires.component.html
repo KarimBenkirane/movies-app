@@ -1,0 +1,8 @@
+<div class="write-comment">
+  <input type="text" name="" id="" />
+</div>
+<div class="comments-container">
+  @for (comment of comments; track comment.username) {
+  <app-commentaire-item [comment]="comment"></app-commentaire-item>
+  }
+</div>

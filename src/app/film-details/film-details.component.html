@@ -42,7 +42,7 @@
   <app-liste-acteurs [acteurs]="this.actors"></app-liste-acteurs>
 </div>
 @if(this.trailerKey) {
-<footer class="trailer">
+<div class="trailer">
   <h3>Bande-annonce</h3>
   <iframe
     width="695"
@@ -54,5 +54,7 @@
     referrerpolicy="strict-origin-when-cross-origin"
     allowfullscreen
   ></iframe>
-</footer>
+</div>
+
+<app-liste-commentaires [comments]="this.comments"></app-liste-commentaires>
 }

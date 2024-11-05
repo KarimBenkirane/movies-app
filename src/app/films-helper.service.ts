@@ -9,6 +9,38 @@ import { Observable } from 'rxjs';
 export class FilmsHelperService {
   favoriteFilms: Film[] = [];
   films: Film[] = [];
+  comments: Array<{
+    idFilm: number;
+    comments: Array<{ username: string; comment: string }>;
+  }> = [
+    {
+      idFilm: 912649,
+      comments: [
+        {
+          username: 'Username 1',
+          comment: 'Comment 1',
+        },
+        {
+          username: 'Username 2',
+          comment: 'Comment 2',
+        },
+      ],
+    },
+    {
+      idFilm: 1184918,
+      comments: [
+        {
+          username: 'Username 1',
+          comment: 'Comment 1',
+        },
+        {
+          username: 'Username 2',
+          comment: 'Comment 2',
+        },
+      ],
+    },
+  ];
+
   API_KEY = 'a2f888b27315e62e471b2d587048f32e';
 
   constructor(private httpClient: HttpClient) {}
@@ -51,5 +83,11 @@ export class FilmsHelperService {
     return this.httpClient.get<any>(
       `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${this.API_KEY}`
     );
+  }
+
+  getCommentsByFilmId(
+    id: number
+  ): Array<{ username: string; comment: string }> | undefined {
+    return this.comments.find((elt) => elt.idFilm === id)?.comments;
   }
 }

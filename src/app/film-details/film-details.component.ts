@@ -11,6 +11,9 @@ import { Cast } from '../models/Cast';
 import { ListeActeursComponent } from '../liste-acteurs/liste-acteurs.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
+import { CommentaireItemComponent } from '../commentaire-item/commentaire-item.component';
+import { ListeCommentairesComponent } from '../liste-commentaires/liste-commentaires.component';
+
 @Component({
   selector: 'app-film-details',
   standalone: true,
@@ -20,6 +23,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
     FontAwesomeModule,
     DecimalPipe,
     ListeActeursComponent,
+    ListeCommentairesComponent,
   ],
   templateUrl: './film-details.component.html',
   styleUrl: './film-details.component.css',
@@ -35,6 +39,8 @@ export class FilmDetailsComponent implements OnInit {
   trailerKey: string = '';
   sanitizedTrailerUrl: SafeResourceUrl | null = null;
   sanitizer: DomSanitizer = inject(DomSanitizer);
+
+  comments: Array<{ username: string; comment: string }> | undefined = [];
 
   faStar = faStar;
 
@@ -71,6 +77,8 @@ export class FilmDetailsComponent implements OnInit {
           );
       }
     });
+
+    this.comments = this.filmsHelper.getCommentsByFilmId(this.filmId);
   }
 
   getDuration(runtime: number | undefined): string {
