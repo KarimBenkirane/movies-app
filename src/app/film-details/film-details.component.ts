@@ -11,8 +11,8 @@ import { Cast } from '../models/Cast';
 import { ListeActeursComponent } from '../liste-acteurs/liste-acteurs.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
-import { CommentaireItemComponent } from '../commentaire-item/commentaire-item.component';
 import { ListeCommentairesComponent } from '../liste-commentaires/liste-commentaires.component';
+import { CreerCommentaireComponent } from '../creer-commentaire/creer-commentaire.component';
 
 @Component({
   selector: 'app-film-details',
@@ -24,6 +24,7 @@ import { ListeCommentairesComponent } from '../liste-commentaires/liste-commenta
     DecimalPipe,
     ListeActeursComponent,
     ListeCommentairesComponent,
+    CreerCommentaireComponent,
   ],
   templateUrl: './film-details.component.html',
   styleUrl: './film-details.component.css',
@@ -40,7 +41,9 @@ export class FilmDetailsComponent implements OnInit {
   sanitizedTrailerUrl: SafeResourceUrl | null = null;
   sanitizer: DomSanitizer = inject(DomSanitizer);
 
-  comments: Array<{ username: string; comment: string }> | undefined = [];
+  comments:
+    | Array<{ username: string; comment: string; date: Date }>
+    | undefined = [];
 
   faStar = faStar;
 
@@ -96,5 +99,9 @@ export class FilmDetailsComponent implements OnInit {
       return genreNames.join(', ');
     }
     return '';
+  }
+
+  sendComment($event: { username: string; comment: string; date: Date }) {
+    this.comments?.unshift($event);
   }
 }

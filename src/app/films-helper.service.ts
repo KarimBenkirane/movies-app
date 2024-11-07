@@ -11,7 +11,7 @@ export class FilmsHelperService {
   films: Film[] = [];
   comments: Array<{
     idFilm: number;
-    comments: Array<{ username: string; comment: string }>;
+    comments: Array<{ username: string; comment: string; date: Date }>;
   }> = [
     {
       idFilm: 912649,
@@ -19,10 +19,12 @@ export class FilmsHelperService {
         {
           username: 'Username 1',
           comment: 'Comment 1',
+          date: new Date(),
         },
         {
           username: 'Username 2',
           comment: 'Comment 2',
+          date: new Date(),
         },
       ],
     },
@@ -32,10 +34,12 @@ export class FilmsHelperService {
         {
           username: 'Username 1',
           comment: 'Comment 1',
+          date: new Date(),
         },
         {
           username: 'Username 2',
           comment: 'Comment 2',
+          date: new Date(),
         },
       ],
     },
@@ -87,7 +91,7 @@ export class FilmsHelperService {
 
   getCommentsByFilmId(
     id: number
-  ): Array<{ username: string; comment: string }> | undefined {
+  ): Array<{ username: string; comment: string; date: Date }> | undefined {
     return this.comments.find((elt) => elt.idFilm === id)?.comments;
   }
 }

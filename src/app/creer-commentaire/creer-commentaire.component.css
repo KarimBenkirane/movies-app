@@ -1,0 +1,37 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 50px 0px 50px;
+  font-family: Poppins, sans-serif;
+  gap: 5px;
+}
+
+.form-container button {
+  justify-self: flex-start;
+  align-self: center;
+}
+
+input,
+textarea {
+  border: 2px solid rgb(126, 123, 123);
+  outline: none;
+  border-radius: 10px;
+  padding: 3px 10px;
+  font-size: 1.1rem;
+}
+
+input:focus,
+textarea:focus {
+  border: 3px solid var(--blue-main);
+}
+
+button {
+  outline: none;
+  border: none;
+  color: #fff;
+  background-color: var(--blue-main);
+  border-radius: 10px;
+  height: 50px;
+  text-align: center;
+  font-size: 1.2rem;
+}

@@ -9,6 +9,7 @@ import { CommentaireItemComponent } from '../commentaire-item/commentaire-item.c
   styleUrl: './liste-commentaires.component.css',
 })
 export class ListeCommentairesComponent {
-  @Input() comments: Array<{ username: string; comment: string }> | undefined =
-    [];
+  @Input() comments:
+    | Array<{ username: string; comment: string; date: Date }>
+    | undefined = [];
 }

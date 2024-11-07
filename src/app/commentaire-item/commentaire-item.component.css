@@ -24,3 +24,7 @@
   flex-direction: column;
   gap: 20px;
 }
+
+span.date {
+  font-weight: normal;
+}

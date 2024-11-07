@@ -3,7 +3,12 @@
     <img src="unknown.png" alt="Profile Picture" />
   </div>
   <div class="comment-content">
-    <strong class="username">{{ comment.username }}</strong>
+    <strong class="username"
+      >{{ comment.username }}
+      <span class="date">
+        <em> le {{ comment.date | date : "d/M/yy, h:mm a" }} </em>
+      </span></strong
+    >
     <p>{{ comment.comment }}</p>
   </div>
 </div>
