@@ -1,5 +1,6 @@
 <div class="comments-container">
   @for (comment of comments; track comment.username) {
   <app-commentaire-item [comment]="comment"></app-commentaire-item>
+  <mat-divider></mat-divider>
   }
 </div>

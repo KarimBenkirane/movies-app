@@ -1,6 +1,5 @@
 .comment-item {
   display: flex;
-  border: 1px solid black;
   gap: 10px;
 }
 

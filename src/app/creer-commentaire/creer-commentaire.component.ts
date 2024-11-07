@@ -23,7 +23,7 @@ export class CreerCommentaireComponent {
 
   onSubmit() {
     if (!this.username || !this.comment) {
-      alert('Veuillez ne laisser aucun champ vide svp !');
+      alert('Veuillez ne laisser aucun champ vide !');
       return;
     }
 

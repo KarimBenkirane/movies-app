@@ -14,6 +14,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ListeCommentairesComponent } from '../liste-commentaires/liste-commentaires.component';
 import { CreerCommentaireComponent } from '../creer-commentaire/creer-commentaire.component';
 
+import { MatDividerModule } from '@angular/material/divider';
+
 @Component({
   selector: 'app-film-details',
   standalone: true,
@@ -25,6 +27,7 @@ import { CreerCommentaireComponent } from '../creer-commentaire/creer-commentair
     ListeActeursComponent,
     ListeCommentairesComponent,
     CreerCommentaireComponent,
+    MatDividerModule,
   ],
   templateUrl: './film-details.component.html',
   styleUrl: './film-details.component.css',
@@ -103,5 +106,6 @@ export class FilmDetailsComponent implements OnInit {
 
   sendComment($event: { username: string; comment: string; date: Date }) {
     this.comments?.unshift($event);
+    this.filmsHelper.persistCommentsById(this.filmId, this.comments || []);
   }
 }

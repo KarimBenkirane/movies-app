@@ -86,3 +86,15 @@ em {
 .trailer > h3 {
   align-self: flex-start;
 }
+
+.comment-section {
+  padding: 40px 100px;
+}
+
+.comment-section h3 {
+  margin-bottom: 40px;
+}
+
+.mat-divider {
+  margin-top: 40px;
+}

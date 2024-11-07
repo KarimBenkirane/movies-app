@@ -12,38 +12,7 @@ export class FilmsHelperService {
   comments: Array<{
     idFilm: number;
     comments: Array<{ username: string; comment: string; date: Date }>;
-  }> = [
-    {
-      idFilm: 912649,
-      comments: [
-        {
-          username: 'Username 1',
-          comment: 'Comment 1',
-          date: new Date(),
-        },
-        {
-          username: 'Username 2',
-          comment: 'Comment 2',
-          date: new Date(),
-        },
-      ],
-    },
-    {
-      idFilm: 1184918,
-      comments: [
-        {
-          username: 'Username 1',
-          comment: 'Comment 1',
-          date: new Date(),
-        },
-        {
-          username: 'Username 2',
-          comment: 'Comment 2',
-          date: new Date(),
-        },
-      ],
-    },
-  ];
+  }> = [];
 
   API_KEY = 'a2f888b27315e62e471b2d587048f32e';
 
@@ -91,7 +60,24 @@ export class FilmsHelperService {
 
   getCommentsByFilmId(
     id: number
-  ): Array<{ username: string; comment: string; date: Date }> | undefined {
-    return this.comments.find((elt) => elt.idFilm === id)?.comments;
+  ): Array<{ username: string; comment: string; date: Date }> {
+    // Find comments for the given film ID
+    let entry = this.comments.find((elt) => elt.idFilm === id);
+
+    // If no comments exist for the film, create an entry with an empty comments array
+    if (!entry) {
+      entry = { idFilm: id, comments: [] };
+      this.comments.push(entry);
+    }
+
+    // Return the comments array (which is empty if it was just created)
+    return entry.comments;
+  }
+
+  persistCommentsById(
+    id: number,
+    comments: Array<{ username: string; comment: string; date: Date }>
+  ) {
+    this.comments.find((elt) => elt.idFilm === id)!.comments = comments;
   }
 }
