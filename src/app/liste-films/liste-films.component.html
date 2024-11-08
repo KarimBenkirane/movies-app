@@ -4,14 +4,14 @@
 
 @if(films.length !== 0) {
 <div class="film-container">
-  @for (film of films; track film.id) { @if(film.id !== 179387) {
+  @for (film of films; track film.id) {
   <app-film-item
     (toggledFavorite)="toggleFavorite(film)"
     appBorderCard
     [film]="film"
     [favorite]="this.filmsHelper.isFavorite(film)"
   ></app-film-item>
-  } }
+  }
 </div>
 }@else {
 <div class="not-found">

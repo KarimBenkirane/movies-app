@@ -27,3 +27,9 @@
 span.date {
   font-weight: normal;
 }
+
+.text-content {
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}

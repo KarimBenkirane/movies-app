@@ -6,9 +6,9 @@
     <strong class="username"
       >{{ comment.username }}
       <span class="date">
-        <em> le {{ comment.date | date : "d/M/yy, h:mm a" }} </em>
+        le <em> {{ comment.date | date : "d/M/yy 'à' h:mm a" }} </em>
       </span></strong
     >
-    <p>{{ comment.comment }}</p>
+    <p class="text-content">{{ comment.comment }}</p>
   </div>
 </div>

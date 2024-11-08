@@ -23,18 +23,29 @@ export class CreerCommentaireComponent {
 
   onSubmit() {
     if (!this.username || !this.comment) {
-      alert('Veuillez ne laisser aucun champ vide !');
+      alert('Veuillez ne laisser aucun champ vide.');
+      return;
+    }
+
+    if (this.username.length < 3 || this.username.length > 20) {
+      alert("Le nom d'utilisateur doit comporter entre 3 et 20 caractères.");
+      return;
+    }
+
+    if (this.comment.length > 300) {
+      alert('Veuillez saisir un commentaire de moins de 300 caractères.');
       return;
     }
 
     const comment = {
-      username: this.username,
-      comment: this.comment,
+      username: this.username.trim(),
+      comment: this.comment.trim(),
       date: new Date(),
     };
 
     this.onSendComment.emit(comment);
 
+    // Réinitialisation des champs
     this.username = '';
     this.comment = '';
   }
