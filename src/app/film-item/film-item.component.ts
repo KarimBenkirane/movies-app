@@ -57,9 +57,9 @@ export class FilmItemComponent {
     this.toggledFavorite.emit(film);
     this.favorite = !this.favorite;
     if (this.favorite) {
-      this.openSnackBar('Film ajouté aux favoris!', 'OK !');
+      this.openSnackBar('Film ajouté aux favoris !', 'OK !');
     } else {
-      this.openSnackBar('Film retiré des favoris!', 'OK !');
+      this.openSnackBar('Film retiré des favoris !', 'OK !');
     }
   }
 }

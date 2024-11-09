@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-creer-commentaire',
@@ -14,6 +15,14 @@ export class CreerCommentaireComponent {
   faPaperPlane = faPaperPlane;
   username: string = '';
   comment: string = '';
+
+  private _snackBar = inject(MatSnackBar);
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 
   @Output() onSendComment = new EventEmitter<{
     username: string;
@@ -44,6 +53,8 @@ export class CreerCommentaireComponent {
     };
 
     this.onSendComment.emit(comment);
+
+    this.openSnackBar('Commentaire ajouté avec succès !', 'OK !');
 
     // Réinitialisation des champs
     this.username = '';

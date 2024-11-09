@@ -64,11 +64,6 @@ em {
   flex-direction: column;
 }
 
-.acteurs,
-.trailer {
-  padding: 40px 100px 40px 100px;
-}
-
 .trailer {
   background-color: var(--blue-main);
   color: #fff;
@@ -76,17 +71,19 @@ em {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 40px;
 }
 
 .acteurs > h3 {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .trailer > h3 {
   align-self: flex-start;
+  margin-bottom: 40px;
 }
 
+.acteurs,
+.trailer,
 .comment-section {
   padding: 40px 100px;
 }
