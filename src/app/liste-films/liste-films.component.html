@@ -1,8 +1,11 @@
 <app-navbar
   [favCount]="this.filmsHelper.getFavoriteFilms().length"
 ></app-navbar>
-
-@if(films.length !== 0) {
+@if(this.loading) {
+<div class="loading-container">
+  <p>Chargement...</p>
+</div>
+} @if(films.length !== 0) {
 <div class="film-container">
   @for (film of films; track film.id) {
   <app-film-item
@@ -13,7 +16,7 @@
   ></app-film-item>
   }
 </div>
-}@else {
+}@if(films.length === 0) {
 <div class="not-found">
   <h3>Aucun film trouvé !</h3>
 </div>

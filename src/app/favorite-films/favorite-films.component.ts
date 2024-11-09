@@ -7,7 +7,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 @Component({
   selector: 'app-favorite-films',
   standalone: true,
-  imports: [ListeFilmsComponent, NavbarComponent],
+  imports: [ListeFilmsComponent],
   templateUrl: './favorite-films.component.html',
   styleUrl: './favorite-films.component.css',
 })
@@ -15,8 +15,4 @@ export class FavoriteFilmsComponent implements OnInit {
   filmsHelper = inject(FilmsHelperService);
 
   ngOnInit(): void {}
-
-  getFavoriteFilms(): Film[] {
-    return this.filmsHelper.getFavoriteFilms();
-  }
 }

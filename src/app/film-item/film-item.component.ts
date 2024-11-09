@@ -22,7 +22,7 @@ import { FilmsHelperService } from '../films-helper.service';
 @Component({
   selector: 'app-film-item',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, DatePipe, DecimalPipe, FontAwesomeModule],
+  imports: [DatePipe, DecimalPipe, FontAwesomeModule],
   templateUrl: './film-item.component.html',
   styleUrl: './film-item.component.css',
 })
