@@ -5,17 +5,11 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { Film } from '../models/Film';
 import { BorderCardDirective } from '../border-card.directive';
 import { Router, RouterLink } from '@angular/router';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-liste-films',
   standalone: true,
-  imports: [
-    FilmItemComponent,
-    NavbarComponent,
-    BorderCardDirective,
-    MatProgressSpinnerModule,
-  ],
+  imports: [FilmItemComponent, NavbarComponent, BorderCardDirective],
   templateUrl: './liste-films.component.html',
   styleUrl: './liste-films.component.css',
 })
