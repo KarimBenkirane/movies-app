@@ -1,12 +1,16 @@
 <mat-card class="acteur-item" appearance="outlined">
   @if(this.acteur.profile_path) {
-  <img
-    mat-card-image
-    [src]="this.profileUrl + this.acteur.profile_path"
-    [alt]="'Photo of ' + acteur.name"
-  />
+  <div class="image-container">
+    <img
+      mat-card-image
+      [src]="this.profileUrl + this.acteur.profile_path"
+      [alt]="'Photo of ' + acteur.name"
+    />
+  </div>
   }@else {
-  <img mat-card-image src="unknown.png" [alt]="'Photo of ' + acteur.name" />
+  <div class="image-container">
+    <img mat-card-image src="unknown.png" [alt]="'Photo of ' + acteur.name" />
+  </div>
   }
   <mat-card-content>
     <p>{{ acteur.name }}</p>
