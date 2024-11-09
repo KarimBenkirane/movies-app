@@ -1,3 +1,8 @@
+@if(this.loading) {
+<div class="loading-container">
+  <p>Chargement...</p>
+</div>
+}@else {
 <div class="detail-films-container">
   <app-navbar></app-navbar>
   <div class="details-film-content">
@@ -65,4 +70,4 @@
   <app-liste-commentaires [comments]="this.comments"></app-liste-commentaires>
 </div>
 
-}
+} }

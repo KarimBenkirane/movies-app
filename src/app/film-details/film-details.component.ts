@@ -53,9 +53,18 @@ export class FilmDetailsComponent implements OnInit {
   posterUrl = 'https://image.tmdb.org/t/p/w500';
   backdropUrl = 'https://image.tmdb.org/t/p/w1280/';
 
+  loading = true;
+
   ngOnInit(): void {
-    this.filmsHelper.getFilmById(this.filmId).subscribe((film: Film) => {
-      this.film = film;
+    this.filmsHelper.getFilmById(this.filmId).subscribe({
+      next: (film: Film) => {
+        this.film = film;
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+        this.router.navigate(['/erreur']);
+      },
     });
 
     this.filmsHelper
@@ -67,6 +76,7 @@ export class FilmDetailsComponent implements OnInit {
             (cast: Cast) => cast.known_for_department === 'Acting'
           );
         }
+        this.loading = false;
       });
 
     this.filmsHelper.getTrailerById(this.filmId).subscribe((response: any) => {
@@ -82,6 +92,7 @@ export class FilmDetailsComponent implements OnInit {
             'https://www.youtube.com/embed/' + this.trailerKey
           );
       }
+      this.loading = false;
     });
 
     this.comments = this.filmsHelper.getCommentsByFilmId(this.filmId);

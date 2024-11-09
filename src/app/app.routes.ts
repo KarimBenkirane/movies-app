@@ -28,6 +28,10 @@ export const routes: Routes = [
     component: FavoriteFilmsComponent,
   },
   {
+    path: 'erreur',
+    component: PageNotFoundComponent,
+  },
+  {
     path: '**',
     component: PageNotFoundComponent,
   },
