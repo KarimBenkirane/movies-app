@@ -1,18 +1,17 @@
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FilmsHelperService } from '../films-helper.service';
-import { Film } from '../models/Film';
-import { DatePipe } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { DecimalPipe } from '@angular/common';
-import { Cast } from '../models/Cast';
+import { FilmsHelperService } from '../films-helper.service';
 import { ListeActeursComponent } from '../liste-acteurs/liste-acteurs.component';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Cast } from '../models/Cast';
+import { Film } from '../models/Film';
+import { NavbarComponent } from '../navbar/navbar.component';
 
-import { ListeCommentairesComponent } from '../liste-commentaires/liste-commentaires.component';
 import { CreerCommentaireComponent } from '../creer-commentaire/creer-commentaire.component';
+import { ListeCommentairesComponent } from '../liste-commentaires/liste-commentaires.component';
 
 import { MatDividerModule } from '@angular/material/divider';
 

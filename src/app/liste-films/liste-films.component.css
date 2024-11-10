@@ -46,3 +46,14 @@
 .search-container input:focus {
   border: 3px solid var(--blue-main);
 }
+
+fa-icon {
+  position: relative;
+  right: 20px;
+  top: 5px;
+  color: gray;
+}
+
+fa-icon:hover {
+  cursor: pointer;
+}

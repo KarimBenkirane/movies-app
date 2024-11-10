@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Cast } from '../models/Cast';
 import { MatCardModule } from '@angular/material/card';
+import { Cast } from '../models/Cast';
 
 @Component({
   selector: 'app-acteur-item',

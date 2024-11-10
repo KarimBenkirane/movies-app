@@ -1,23 +1,16 @@
-import {
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
-import { RouterLink } from '@angular/router';
-import { Film } from '../models/Film';
-import { DatePipe } from '@angular/common';
-import { DecimalPipe } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { DatePipe, DecimalPipe } from '@angular/common';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
+import {
+  faEllipsis,
+  faHeart as faHeartSolid,
+  faStar,
+} from '@fortawesome/free-solid-svg-icons';
 import { FilmsHelperService } from '../films-helper.service';
+import { Film } from '../models/Film';
 
 @Component({
   selector: 'app-film-item',

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Cast } from '../models/Cast';
 import { ActeurItemComponent } from '../acteur-item/acteur-item.component';
+import { Cast } from '../models/Cast';
 
 @Component({
   selector: 'app-liste-acteurs',

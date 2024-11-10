@@ -1,8 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ListeFilmsComponent } from '../liste-films/liste-films.component';
 import { FilmsHelperService } from '../films-helper.service';
-import { Film } from '../models/Film';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { ListeFilmsComponent } from '../liste-films/liste-films.component';
 
 @Component({
   selector: 'app-favorite-films',

@@ -60,7 +60,7 @@
     allowfullscreen
   ></iframe>
 </div>
-
+}
 <div class="comment-section">
   <h3>Espace commentaires</h3>
   <app-creer-commentaire
@@ -68,6 +68,4 @@
   ></app-creer-commentaire>
   @if(this.comments?.length !== 0) { <mat-divider></mat-divider>}
   <app-liste-commentaires [comments]="this.comments"></app-liste-commentaires>
-</div>
-
-} }
+</div> }

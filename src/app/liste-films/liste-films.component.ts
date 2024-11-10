@@ -1,11 +1,8 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { FilmItemComponent } from '../film-item/film-item.component';
-import { FilmsHelperService } from '../films-helper.service';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { Film } from '../models/Film';
-import { BorderCardDirective } from '../border-card.directive';
-import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faX } from '@fortawesome/free-solid-svg-icons';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -13,6 +10,11 @@ import {
   Subscription,
   switchMap,
 } from 'rxjs';
+import { BorderCardDirective } from '../border-card.directive';
+import { FilmItemComponent } from '../film-item/film-item.component';
+import { FilmsHelperService } from '../films-helper.service';
+import { Film } from '../models/Film';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-liste-films',
@@ -22,6 +24,7 @@ import {
     NavbarComponent,
     BorderCardDirective,
     FormsModule,
+    FontAwesomeModule,
   ],
   templateUrl: './liste-films.component.html',
   styleUrl: './liste-films.component.css',
@@ -36,14 +39,18 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   private searchSubject: Subject<string> = new Subject<string>();
   private searchSubscription!: Subscription;
 
+  router = inject(Router);
+
   loading = false;
+
+  faX = faX;
 
   constructor() {}
 
   ngOnInit(): void {
     this.searchSubscription = this.searchSubject
       .pipe(
-        debounceTime(500),
+        debounceTime(1000),
         distinctUntilChanged(),
         switchMap((term) => {
           this.loading = true;
@@ -56,7 +63,9 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (response: any) => {
-          this.films = response.results;
+          this.films = response.results.filter(
+            (elt: Film) => elt.poster_path !== null && elt.vote_count > 0
+          );
           this.loading = false;
         },
         error: (err) => {
@@ -77,7 +86,9 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.searchSubscription.unsubscribe();
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
   }
 
   toggleFavorite(film: Film) {
@@ -89,5 +100,12 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
 
   searchFilms() {
     this.searchSubject.next(this.searchTerm);
+  }
+
+  resetSearch() {
+    if (this.searchTerm) {
+      this.searchTerm = '';
+      this.searchFilms();
+    }
   }
 }

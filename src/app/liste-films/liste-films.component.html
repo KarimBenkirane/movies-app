@@ -15,18 +15,18 @@
     [(ngModel)]="searchTerm"
     (ngModelChange)="searchFilms()"
   />
+  <fa-icon (click)="resetSearch()" [icon]="faX"></fa-icon>
 </div>
 } @if(films.length !== 0) {
 <div class="film-container">
-  @for (film of films; track film.id) { @if(film.poster_path &&
-  film.vote_average > 0 && film.vote_count > 10) {
+  @for (film of films; track film.id) {
   <app-film-item
     (toggledFavorite)="toggleFavorite(film)"
     appBorderCard
     [film]="film"
     [favorite]="this.filmsHelper.isFavorite(film)"
   ></app-film-item>
-  } }
+  }
 </div>
 }@else {
 <div class="not-found">

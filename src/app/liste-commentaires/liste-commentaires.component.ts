@@ -1,7 +1,6 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { FilmsHelperService } from '../films-helper.service';
-import { CommentaireItemComponent } from '../commentaire-item/commentaire-item.component';
+import { Component, Input } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
+import { CommentaireItemComponent } from '../commentaire-item/commentaire-item.component';
 @Component({
   selector: 'app-liste-commentaires',
   standalone: true,
