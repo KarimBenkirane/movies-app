@@ -80,4 +80,10 @@ export class FilmsHelperService {
   ) {
     this.comments.find((elt) => elt.idFilm === id)!.comments = comments;
   }
+
+  searchFilms(title: string): Observable<any> {
+    return this.httpClient.get<any>(
+      `https://api.themoviedb.org/3/search/movie?api_key=${this.API_KEY}&query=${title}&language=fr-FR&include_adult=false`
+    );
+  }
 }

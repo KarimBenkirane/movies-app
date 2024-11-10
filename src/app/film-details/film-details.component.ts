@@ -16,6 +16,8 @@ import { CreerCommentaireComponent } from '../creer-commentaire/creer-commentair
 
 import { MatDividerModule } from '@angular/material/divider';
 
+import { forkJoin } from 'rxjs';
+
 @Component({
   selector: 'app-film-details',
   standalone: true,
@@ -51,48 +53,41 @@ export class FilmDetailsComponent implements OnInit {
   faStar = faStar;
 
   posterUrl = 'https://image.tmdb.org/t/p/w500';
-  backdropUrl = 'https://image.tmdb.org/t/p/w1280/';
+  backdropUrl = 'https://image.tmdb.org/t/p/w780/';
 
-  loading = true;
+  loading = false;
 
   ngOnInit(): void {
-    this.filmsHelper.getFilmById(this.filmId).subscribe({
-      next: (film: Film) => {
+    this.loading = true;
+
+    forkJoin({
+      film: this.filmsHelper.getFilmById(this.filmId),
+      credits: this.filmsHelper.getFilmCreditsById(this.filmId),
+      trailer: this.filmsHelper.getTrailerById(this.filmId),
+    }).subscribe({
+      next: ({ film, credits, trailer }) => {
         this.film = film;
+        this.cast = credits.cast;
+        this.actors = this.cast.filter(
+          (elt) => elt.known_for_department === 'Acting'
+        );
+        const trailerItem = trailer.results.find(
+          (elt: any) =>
+            elt.type === 'Trailer' && elt.official && elt.site == 'YouTube'
+        );
+        if (trailerItem) {
+          this.trailerKey = trailerItem.key;
+          this.sanitizedTrailerUrl =
+            this.sanitizer.bypassSecurityTrustResourceUrl(
+              'https://www.youtube.com/embed/' + this.trailerKey
+            );
+        }
         this.loading = false;
       },
       error: () => {
-        this.loading = false;
         this.router.navigate(['/erreur']);
-      },
-    });
-
-    this.filmsHelper
-      .getFilmCreditsById(this.filmId)
-      .subscribe((response: any) => {
-        this.cast = response.cast;
-        if (this.cast) {
-          this.actors = this.cast.filter(
-            (cast: Cast) => cast.known_for_department === 'Acting'
-          );
-        }
         this.loading = false;
-      });
-
-    this.filmsHelper.getTrailerById(this.filmId).subscribe((response: any) => {
-      let trailer = response.results.find(
-        (elt: any) =>
-          elt.type === 'Trailer' && elt.official && elt.site === 'YouTube'
-      );
-      this.trailerKey = trailer.key;
-
-      if (this.trailerKey) {
-        this.sanitizedTrailerUrl =
-          this.sanitizer.bypassSecurityTrustResourceUrl(
-            'https://www.youtube.com/embed/' + this.trailerKey
-          );
-      }
-      this.loading = false;
+      },
     });
 
     this.comments = this.filmsHelper.getCommentsByFilmId(this.filmId);

@@ -1,23 +1,35 @@
 <app-navbar
   [favCount]="this.filmsHelper.getFavoriteFilms().length"
 ></app-navbar>
-@if(this.loading) {
+@if(loading) {
 <div class="loading-container">
   <p>Chargement...</p>
 </div>
+}@else { @if(!this.displayFavorites) {
+<div class="search-container">
+  <input
+    type="text"
+    name="searchTerm"
+    id="searchTerm"
+    placeholder="Rechercher un film..."
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="searchFilms()"
+  />
+</div>
 } @if(films.length !== 0) {
 <div class="film-container">
-  @for (film of films; track film.id) {
+  @for (film of films; track film.id) { @if(film.poster_path &&
+  film.vote_average > 0 && film.vote_count > 10) {
   <app-film-item
     (toggledFavorite)="toggleFavorite(film)"
     appBorderCard
     [film]="film"
     [favorite]="this.filmsHelper.isFavorite(film)"
   ></app-film-item>
-  }
+  } }
 </div>
-}@if(films.length === 0) {
+}@else {
 <div class="not-found">
   <h3>Aucun film trouvé !</h3>
 </div>
-}
+} }
