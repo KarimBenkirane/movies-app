@@ -64,7 +64,8 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response: any) => {
           this.films = response.results.filter(
-            (elt: Film) => elt.poster_path !== null && elt.vote_count > 0
+            (elt: Film) =>
+              elt.poster_path !== null && elt.vote_count > 0 && elt.overview
           );
           this.loading = false;
         },
@@ -76,10 +77,7 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
 
     if (!this.displayFavorites) {
       this.loading = true;
-      this.filmsHelper.getAllFilms().subscribe((response: any) => {
-        this.films = response.results;
-        this.loading = false;
-      });
+      this.searchSubject.next('');
     } else {
       this.films = this.filmsHelper.getFavoriteFilms();
     }
