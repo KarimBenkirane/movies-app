@@ -24,7 +24,7 @@
 
 .backdrop {
   filter: blur(100px);
-  transform: scale(1.2);
+  transform: scale(1.4);
   object-fit: fill;
   z-index: -3;
   position: absolute;
