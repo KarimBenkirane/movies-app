@@ -14,14 +14,18 @@
 .details-film-content {
   position: relative;
   display: flex;
-  background-color: rgba(0, 69, 104, 0.85);
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1;
+  background-color: rgba(0, 0, 0, 0.575);
+  overflow: hidden;
 }
 
 .backdrop {
+  filter: blur(100px);
+  transform: scale(1.2);
+  object-fit: fill;
   z-index: -3;
   position: absolute;
   top: 0; /* Align to the top of the container */
