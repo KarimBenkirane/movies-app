@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Film } from './models/Film';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Comment } from './models/Comment';
+import { Film } from './models/Film';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +12,10 @@ export class FilmsHelperService {
   films: Film[] = [];
   comments: Array<{
     idFilm: number;
-    comments: Array<{ username: string; comment: string; date: Date }>;
+    comments: Comment[];
   }> = [];
 
-  API_KEY = 'a2f888b27315e62e471b2d587048f32e';
+  API_KEY = 'c64f1b9081abb640667ac4fe9fd0cf9b';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -58,9 +59,7 @@ export class FilmsHelperService {
     );
   }
 
-  getCommentsByFilmId(
-    id: number
-  ): Array<{ username: string; comment: string; date: Date }> {
+  getCommentsByFilmId(id: number): Comment[] {
     // Find comments for the given film ID
     let entry = this.comments.find((elt) => elt.idFilm === id);
 
@@ -74,10 +73,7 @@ export class FilmsHelperService {
     return entry.comments;
   }
 
-  persistCommentsById(
-    id: number,
-    comments: Array<{ username: string; comment: string; date: Date }>
-  ) {
+  persistCommentsById(id: number, comments: Comment[]) {
     this.comments.find((elt) => elt.idFilm === id)!.comments = comments;
   }
 

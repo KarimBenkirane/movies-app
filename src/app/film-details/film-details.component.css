@@ -107,4 +107,6 @@ em {
   height: 80vh;
   font-family: Poppins, sans-serif;
   font-size: 1.2rem;
+  z-index: 2000;
+  overflow: hidden;
 }

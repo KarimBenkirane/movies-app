@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommentaireItemComponent } from '../commentaire-item/commentaire-item.component';
+import { Comment } from '../models/Comment';
 @Component({
   selector: 'app-liste-commentaires',
   standalone: true,
@@ -9,7 +10,5 @@ import { CommentaireItemComponent } from '../commentaire-item/commentaire-item.c
   styleUrl: './liste-commentaires.component.css',
 })
 export class ListeCommentairesComponent {
-  @Input() comments:
-    | Array<{ username: string; comment: string; date: Date }>
-    | undefined = [];
+  @Input() comments: Comment[] | undefined = [];
 }

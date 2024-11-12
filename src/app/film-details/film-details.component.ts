@@ -46,7 +46,12 @@ export class FilmDetailsComponent implements OnInit {
   sanitizer: DomSanitizer = inject(DomSanitizer);
 
   comments:
-    | Array<{ username: string; comment: string; date: Date }>
+    | Array<{
+        username: string;
+        comment: string;
+        rating: number;
+        date: Date;
+      }>
     | undefined = [];
 
   faStar = faStar;
@@ -109,7 +114,12 @@ export class FilmDetailsComponent implements OnInit {
     return '';
   }
 
-  sendComment($event: { username: string; comment: string; date: Date }) {
+  sendComment($event: {
+    username: string;
+    comment: string;
+    rating: number;
+    date: Date;
+  }) {
     this.comments?.unshift($event);
     this.filmsHelper.persistCommentsById(this.filmId, this.comments || []);
   }

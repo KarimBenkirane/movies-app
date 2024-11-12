@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { Comment } from '../models/Comment';
 
 @Component({
   selector: 'app-creer-commentaire',
@@ -13,7 +14,7 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 })
 export class CreerCommentaireComponent {
   faPaperPlane = faPaperPlane;
-  username: string = '';
+  username: string = 'User';
   comment: string = '';
 
   private _snackBar = inject(MatSnackBar);
@@ -24,11 +25,7 @@ export class CreerCommentaireComponent {
     });
   }
 
-  @Output() onSendComment = new EventEmitter<{
-    username: string;
-    comment: string;
-    date: Date;
-  }>();
+  @Output() onSendComment = new EventEmitter<Comment>();
 
   onSubmit() {
     if (!this.username || !this.comment) {
@@ -46,9 +43,10 @@ export class CreerCommentaireComponent {
       return;
     }
 
-    const comment = {
+    const comment: Comment = {
       username: this.username.trim(),
       comment: this.comment.trim(),
+      rating: 2,
       date: new Date(),
     };
 
@@ -57,7 +55,6 @@ export class CreerCommentaireComponent {
     this.openSnackBar('Commentaire ajouté avec succès !', 'OK !');
 
     // Réinitialisation des champs
-    this.username = '';
     this.comment = '';
   }
 }
