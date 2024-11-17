@@ -1,11 +1,7 @@
 <app-navbar
   [favCount]="this.filmsHelper.getFavoriteFilms().length"
 ></app-navbar>
-@if(loading) {
-<div class="loading-container">
-  <p>Chargement...</p>
-</div>
-}@else { @if(!this.displayFavorites) {
+@if(!this.displayFavorites) {
 <div class="search-container">
   <input
     type="text"
@@ -40,4 +36,4 @@
 <div class="not-found">
   <h3>Aucun film trouvé !</h3>
 </div>
-} }
+}

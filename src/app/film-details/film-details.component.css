@@ -99,14 +99,3 @@ em {
 .mat-divider {
   margin-top: 40px;
 }
-
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;
-  font-family: Poppins, sans-serif;
-  font-size: 1.2rem;
-  z-index: 2000;
-  overflow: hidden;
-}

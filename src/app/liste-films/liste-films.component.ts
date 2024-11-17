@@ -41,8 +41,6 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
 
   router = inject(Router);
 
-  loading = false;
-
   faX = faX;
 
   constructor() {}
@@ -53,7 +51,6 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
         debounceTime(1000),
         distinctUntilChanged(),
         switchMap((term) => {
-          this.loading = true;
           if (!term) {
             return this.filmsHelper.getAllFilms();
           } else {
@@ -67,16 +64,13 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
             (elt: Film) =>
               elt.poster_path !== null && elt.vote_count > 0 && elt.overview
           );
-          this.loading = false;
         },
         error: (err) => {
-          this.loading = false;
           console.error(err);
         },
       });
 
     if (!this.displayFavorites) {
-      this.loading = true;
       this.searchSubject.next('');
     } else {
       this.films = this.filmsHelper.getFavoriteFilms();

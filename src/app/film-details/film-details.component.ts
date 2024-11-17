@@ -59,11 +59,7 @@ export class FilmDetailsComponent implements OnInit {
   posterUrl = 'https://image.tmdb.org/t/p/w500';
   backdropUrl = 'https://image.tmdb.org/t/p/w780/';
 
-  loading = false;
-
   ngOnInit(): void {
-    this.loading = true;
-
     forkJoin({
       film: this.filmsHelper.getFilmById(this.filmId),
       credits: this.filmsHelper.getFilmCreditsById(this.filmId),
@@ -86,11 +82,9 @@ export class FilmDetailsComponent implements OnInit {
               'https://www.youtube.com/embed/' + this.trailerKey
             );
         }
-        this.loading = false;
       },
       error: () => {
         this.router.navigate(['/erreur']);
-        this.loading = false;
       },
     });
 

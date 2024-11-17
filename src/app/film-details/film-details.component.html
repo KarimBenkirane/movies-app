@@ -1,8 +1,3 @@
-@if(loading) {
-<div class="loading-container">
-  <p>Chargement...</p>
-</div>
-}@else {
 <div class="detail-films-container">
   <app-navbar></app-navbar>
   <div class="details-film-content">
@@ -68,4 +63,4 @@
   ></app-creer-commentaire>
   @if(this.comments?.length !== 0) { <mat-divider></mat-divider>}
   <app-liste-commentaires [comments]="this.comments"></app-liste-commentaires>
-</div> }
+</div>
