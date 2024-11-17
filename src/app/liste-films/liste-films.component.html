@@ -1,7 +1,6 @@
 <app-navbar [favCount]="this.filmsHelper.favoriteFilms.length"></app-navbar>
 
-@if(!this.loading) { @if(this.films.length !== 0) { @if(!this.displayFavorites)
-{
+@if(!this.loading) { @if(!this.displayFavorites) {
 <div class="search-container">
   <input
     type="text"
@@ -13,11 +12,11 @@
   />
   <fa-icon (click)="resetSearch()" [icon]="faX"></fa-icon>
 </div>
-@if(!searchTerm) {
+@if(this.showPopularMessage) {
 <div class="search-term">
   <h3>Sorties populaires :</h3>
 </div>
-}@else if(showResultsMessage) {
+} @if(this.showResultsMessage) {
 <div class="search-term">
   <h3>Résultats de votre recherche : '{{ searchTerm }}'</h3>
 </div>
@@ -33,10 +32,9 @@
   ></app-film-item>
   }
 </div>
-}@else {
+
+@if(this.films.length === 0) {
 <div class="not-found">
   <h3>Aucun film trouvé !</h3>
 </div>
-} } @else {
-<app-chargement></app-chargement>
-}
+} } @else {<app-chargement></app-chargement>}

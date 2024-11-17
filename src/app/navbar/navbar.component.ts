@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FilmsHelperService } from '../films-helper.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { FilmsHelperService } from '../films-helper.service';
 export class NavbarComponent {
   @Input() favCount = 0;
   filmsHelper = inject(FilmsHelperService);
+  router = inject(Router);
 
   constructor() {
     this.favCount = this.filmsHelper.favoriteFilms.length;

@@ -46,6 +46,7 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   loading!: boolean;
 
   showResultsMessage: boolean = false;
+  showPopularMessage: boolean = true;
 
   constructor() {}
 
@@ -56,8 +57,13 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
         debounceTime(500),
         distinctUntilChanged(),
         switchMap((term) => {
+          this.loading = true;
           if (term) {
             this.showResultsMessage = true;
+            this.showPopularMessage = false;
+          } else {
+            this.showPopularMessage = true;
+            this.showResultsMessage = false;
           }
           return this.filmsHelper.searchFilms(term);
         })
@@ -96,11 +102,13 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   }
 
   searchFilms() {
+    this.showResultsMessage = false;
     this.searchSubject.next(this.searchTerm);
   }
 
   resetSearch() {
     if (this.searchTerm) {
+      this.loading = true;
       this.searchTerm = '';
       this.searchFilms();
     }
