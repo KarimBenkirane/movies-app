@@ -45,6 +45,8 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
 
   loading!: boolean;
 
+  showResultsMessage: boolean = false;
+
   constructor() {}
 
   ngOnInit(): void {
@@ -54,6 +56,9 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
         debounceTime(500),
         distinctUntilChanged(),
         switchMap((term) => {
+          if (term) {
+            this.showResultsMessage = true;
+          }
           return this.filmsHelper.searchFilms(term);
         })
       )
