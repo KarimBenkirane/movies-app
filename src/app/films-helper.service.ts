@@ -19,12 +19,8 @@ export class FilmsHelperService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getFavoriteFilms(): Film[] {
-    return this.favoriteFilms;
-  }
-
   isFavorite(film: Film): boolean {
-    return this.getFavoriteFilms().some((f) => f.id === film.id);
+    return this.favoriteFilms.some((f) => f.id === film.id);
   }
 
   toggleFavorite(film: Film) {
@@ -78,6 +74,9 @@ export class FilmsHelperService {
   }
 
   searchFilms(title: string): Observable<any> {
+    if (!title) {
+      return this.getAllFilms();
+    }
     return this.httpClient.get<any>(
       `https://api.themoviedb.org/3/search/movie?api_key=${this.API_KEY}&query=${title}&language=fr-FR&include_adult=false`
     );

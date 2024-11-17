@@ -1,3 +1,4 @@
+@if(!this.loading) {
 <div class="detail-films-container">
   <app-navbar></app-navbar>
   <div class="details-film-content">
@@ -20,7 +21,7 @@
           <span> ({{ film?.release_date | date : "yyyy" }}) </span>
         </h2>
         <p>
-          {{ film?.release_date | date : "d/M/yyyy" }} •
+          {{ film?.release_date | date : "dd/MM/yyyy" }} •
           {{ getGenres(film?.genres) }} •
           {{ getDuration(film?.runtime) }}
         </p>
@@ -64,3 +65,6 @@
   @if(this.comments?.length !== 0) { <mat-divider></mat-divider>}
   <app-liste-commentaires [comments]="this.comments"></app-liste-commentaires>
 </div>
+}@else {
+<app-chargement></app-chargement>
+}

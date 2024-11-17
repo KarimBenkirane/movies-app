@@ -9,7 +9,6 @@ import {
   faHeart as faHeartSolid,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
-import { FilmsHelperService } from '../films-helper.service';
 import { Film } from '../models/Film';
 
 @Component({
@@ -23,7 +22,6 @@ export class FilmItemComponent {
   @Input() film!: Film;
   baseUrl = 'https://image.tmdb.org/t/p/w500';
   @Output() toggledFavorite = new EventEmitter();
-  filmsHelper = inject(FilmsHelperService);
 
   @Input() favorite: boolean = false;
 

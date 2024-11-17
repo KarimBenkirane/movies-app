@@ -14,6 +14,6 @@ export class NavbarComponent {
   filmsHelper = inject(FilmsHelperService);
 
   constructor() {
-    this.favCount = this.filmsHelper.getFavoriteFilms().length;
+    this.favCount = this.filmsHelper.favoriteFilms.length;
   }
 }
