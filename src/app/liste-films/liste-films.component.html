@@ -1,4 +1,7 @@
-<app-navbar [favCount]="this.filmsHelper.favoriteFilms.length"></app-navbar>
+<app-navbar
+  [favCount]="this.filmsHelper.favoriteFilms.length"
+  (onClearSearch)="resetSearch()"
+></app-navbar>
 
 @if(!this.loading) { @if(!this.displayFavorites) {
 <div class="search-container">

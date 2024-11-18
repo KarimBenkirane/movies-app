@@ -1,9 +1,11 @@
 <div class="navbar">
   <div class="title-container">
-    <a class="title" routerLink="/"><h2>FilmsList</h2></a>
+    <a class="title" routerLink="/" (click)="clearSearch()"
+      ><h2>FilmsList</h2></a
+    >
   </div>
   <div class="links">
-    <a routerLink="/">Accueil</a>
+    <a routerLink="/" (click)="clearSearch()">Accueil</a>
     <a routerLink="/favoris">Favoris ({{ favCount }}) </a>
     <a routerLink="/connexion">Connexion</a>
   </div>

@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FilmsHelperService } from '../films-helper.service';
 
@@ -10,11 +10,15 @@ import { FilmsHelperService } from '../films-helper.service';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  @Input() favCount = 0;
   filmsHelper = inject(FilmsHelperService);
   router = inject(Router);
 
-  constructor() {
-    this.favCount = this.filmsHelper.favoriteFilms.length;
+  @Input() favCount = 0;
+  @Output() onClearSearch = new EventEmitter();
+
+  clearSearch() {
+    if (this.router.url === '/') {
+      this.onClearSearch.emit();
+    }
   }
 }
