@@ -1,5 +1,6 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../auth.service';
 import { FilmsHelperService } from '../films-helper.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { FilmsHelperService } from '../films-helper.service';
 })
 export class NavbarComponent {
   filmsHelper = inject(FilmsHelperService);
+  authService: AuthService = inject(AuthService);
   router = inject(Router);
 
   @Input() favCount = 0;

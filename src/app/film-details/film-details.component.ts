@@ -16,6 +16,7 @@ import { ListeCommentairesComponent } from '../liste-commentaires/liste-commenta
 import { MatDividerModule } from '@angular/material/divider';
 
 import { forkJoin } from 'rxjs';
+import { AuthService } from '../auth.service';
 import { ChargementComponent } from '../chargement/chargement.component';
 
 @Component({
@@ -46,6 +47,8 @@ export class FilmDetailsComponent implements OnInit {
   trailerKey: string = '';
   sanitizedTrailerUrl: SafeResourceUrl | null = null;
   sanitizer: DomSanitizer = inject(DomSanitizer);
+
+  authService = inject(AuthService);
 
   comments:
     | Array<{

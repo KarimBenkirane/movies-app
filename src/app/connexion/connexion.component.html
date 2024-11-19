@@ -1,14 +1,15 @@
 <app-navbar></app-navbar>
 
 <div class="wrapper">
-  <form>
+  <form (ngSubmit)="onSubmit()">
     <div class="login-container">
       <h3>Connexion</h3>
       <input
-        id="email"
-        name="email"
-        type="email"
-        placeholder="email@example.com"
+        id="username"
+        name="username"
+        type="username"
+        placeholder="Nom d'utilisateur"
+        [(ngModel)]="username"
         required
       />
       <input
@@ -16,6 +17,7 @@
         name="password"
         type="password"
         placeholder="*********"
+        [(ngModel)]="password"
         required
       />
       <div class="remember-container">

@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '../auth.service';
 import { Comment } from '../models/Comment';
 
 @Component({
@@ -14,7 +15,8 @@ import { Comment } from '../models/Comment';
 })
 export class CreerCommentaireComponent {
   faPaperPlane = faPaperPlane;
-  username: string = 'User';
+  authService = inject(AuthService);
+  username: string = this.authService.username;
   comment: string = '';
 
   private _snackBar = inject(MatSnackBar);
@@ -28,13 +30,8 @@ export class CreerCommentaireComponent {
   @Output() onSendComment = new EventEmitter<Comment>();
 
   onSubmit() {
-    if (!this.username || !this.comment) {
-      alert('Veuillez ne laisser aucun champ vide.');
-      return;
-    }
-
-    if (this.username.length < 3 || this.username.length > 20) {
-      alert("Le nom d'utilisateur doit comporter entre 3 et 20 caractères.");
+    if (!this.comment) {
+      alert('Veuillez saisir votre commentaire.');
       return;
     }
 

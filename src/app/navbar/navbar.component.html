@@ -7,6 +7,16 @@
   <div class="links">
     <a routerLink="/" (click)="clearSearch()">Accueil</a>
     <a routerLink="/favoris">Favoris ({{ favCount }}) </a>
+    @if(!this.authService.isLoggedIn) {
     <a routerLink="/connexion">Connexion</a>
+    }@else {
+    <a
+      >{{ this.authService.username }} (<a
+        class="logout"
+        (click)="this.authService.logOut()"
+        >Se déconnecter</a
+      >)</a
+    >
+    }
   </div>
 </div>

@@ -21,3 +21,7 @@ a {
 .links > a {
   font-size: 1.15rem;
 }
+
+.logout {
+  cursor: pointer;
+}

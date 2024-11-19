@@ -17,7 +17,7 @@
   border-radius: 20px;
 }
 
-#email,
+#username,
 #password {
   border: 2px solid rgb(126, 123, 123);
   outline: none;
@@ -27,7 +27,7 @@
   font-size: 1.1rem;
 }
 
-#email:focus,
+#username:focus,
 #password:focus {
   border: 3px solid var(--blue-main);
 }
