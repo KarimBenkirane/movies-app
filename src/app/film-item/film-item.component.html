@@ -13,7 +13,7 @@
       (click)="goToDetails(film.id)"
       [icon]="faEllipsis"
     ></fa-icon>
-    @if(!favorite) {
+    @if(this.authService.isLoggedIn) { @if(!favorite) {
     <fa-icon
       class="icon"
       (click)="toggleFavorite(film)"
@@ -25,6 +25,6 @@
       (click)="toggleFavorite(film)"
       [icon]="faHeartSolid"
     ></fa-icon>
-    }
+    } }
   </div>
 </div>

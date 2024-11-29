@@ -16,7 +16,7 @@ import { Comment } from '../models/Comment';
 export class CreerCommentaireComponent {
   faPaperPlane = faPaperPlane;
   authService = inject(AuthService);
-  username: string = this.authService.username;
+  email: string = this.authService.email;
   comment: string = '';
 
   private _snackBar = inject(MatSnackBar);
@@ -41,7 +41,7 @@ export class CreerCommentaireComponent {
     }
 
     const comment: Comment = {
-      username: this.username.trim(),
+      username: this.email.trim(),
       comment: this.comment.trim(),
       rating: 2,
       date: new Date(),

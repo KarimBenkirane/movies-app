@@ -9,6 +9,7 @@ import {
   faHeart as faHeartSolid,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '../auth.service';
 import { Film } from '../models/Film';
 
 @Component({
@@ -30,6 +31,7 @@ export class FilmItemComponent {
   faHeartRegular = faHeartRegular;
   faEllipsis = faEllipsis;
 
+  authService = inject(AuthService);
   snackBar = inject(MatSnackBar);
 
   constructor(private router: Router) {}

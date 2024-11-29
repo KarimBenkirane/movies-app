@@ -1,4 +1,10 @@
 import { inject, Injectable } from '@angular/core';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -6,22 +12,42 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   isLoggedIn!: boolean;
-  username: string = '';
+  email: string = '';
+  token: string = '';
+
   router = inject(Router);
 
-  constructor() {}
+  constructor(private auth: Auth) {}
 
-  logIn(username: string, password: string) {
-    if (username == 'admin' && password == 'admin') {
-      this.isLoggedIn = true;
-      this.username = username;
-      this.router.navigate(['/']);
-    } else {
-      this.isLoggedIn = false;
+  async register(email: string, password: string) {
+    try {
+      await createUserWithEmailAndPassword(this.auth, email, password);
+    } catch (error: any) {
+      console.log('Error', error);
+      throw error;
     }
   }
 
-  logOut() {
+  async logIn(email: string, password: string) {
+    try {
+      const userCredential: any = await signInWithEmailAndPassword(
+        this.auth,
+        email,
+        password
+      );
+      this.email = email;
+      this.token = userCredential.user.accessToken;
+      this.isLoggedIn = true;
+      console.log(this.token);
+      this.router.navigate(['/']);
+    } catch (error) {
+      this.isLoggedIn = false;
+      throw error;
+    }
+  }
+
+  async logOut() {
+    await signOut(this.auth);
     this.isLoggedIn = false;
     this.router.navigate(['/']);
   }

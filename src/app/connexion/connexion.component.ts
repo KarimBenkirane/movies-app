@@ -12,17 +12,26 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrl: './connexion.component.css',
 })
 export class ConnexionComponent {
-  username: string = '';
+  email: string = '';
   password: string = '';
 
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router);
 
-  onSubmit() {
-    this.authService.logIn(this.username, this.password);
-    if (!this.authService.isLoggedIn) {
-      alert('Mauvais email ou mot de passe (admin/admin)');
-      this.password = '';
+  async onSubmit() {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.email)) {
+      alert('Veuillez saisir une adresse email valide !');
+      return;
+    }
+    if (!this.email || !this.password) {
+      alert('Veuillez ne laisser aucun champ vide !');
+      return;
+    }
+    try {
+      await this.authService.logIn(this.email, this.password);
+    } catch (error: any) {
+      alert('Erreur');
     }
   }
 }

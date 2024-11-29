@@ -6,12 +6,14 @@
   </div>
   <div class="links">
     <a routerLink="/" (click)="clearSearch()">Accueil</a>
-    <a routerLink="/favoris">Favoris ({{ favCount }}) </a>
-    @if(!this.authService.isLoggedIn) {
+    @if(this.authService.isLoggedIn) {<a routerLink="/favoris"
+      >Favoris ({{ favCount }}) </a
+    >} @if(!this.authService.isLoggedIn) {
     <a routerLink="/connexion">Connexion</a>
+    <a routerLink="/inscription">Inscription</a>
     }@else {
     <a
-      >{{ this.authService.username }} (<a
+      >{{ this.authService.email }} (<a
         class="logout"
         (click)="this.authService.logOut()"
         >Se déconnecter</a

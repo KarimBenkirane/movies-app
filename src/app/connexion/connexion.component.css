@@ -1,5 +1,4 @@
 .wrapper {
-  font-family: Poppins, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,7 +16,7 @@
   border-radius: 20px;
 }
 
-#username,
+#email,
 #password {
   border: 2px solid rgb(126, 123, 123);
   outline: none;
@@ -27,7 +26,7 @@
   font-size: 1.1rem;
 }
 
-#username:focus,
+#email:focus,
 #password:focus {
   border: 3px solid var(--blue-main);
 }

@@ -79,11 +79,14 @@ h6 {
   --blue-main: #0284c7;
 }
 
+* {
+  font-family: Poppins, sans-serif;
+}
+
 html,
 body {
   height: 100%;
 }
 body {
   margin: 0;
-  font-family: Poppins, sans-serif;
 }
