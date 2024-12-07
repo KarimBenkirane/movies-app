@@ -18,6 +18,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { forkJoin } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { ChargementComponent } from '../chargement/chargement.component';
+import { Comment } from '../models/Comment';
 
 @Component({
   selector: 'app-film-details',
@@ -50,14 +51,7 @@ export class FilmDetailsComponent implements OnInit {
 
   authService = inject(AuthService);
 
-  comments:
-    | Array<{
-        username: string;
-        comment: string;
-        rating: number;
-        date: Date;
-      }>
-    | undefined = [];
+  comments: Comment[] = [];
 
   faStar = faStar;
 
@@ -79,6 +73,7 @@ export class FilmDetailsComponent implements OnInit {
         this.actors = this.cast.filter(
           (elt) => elt.known_for_department === 'Acting'
         );
+
         const trailerItem = trailer.results.find(
           (elt: any) =>
             elt.type === 'Trailer' && elt.official && elt.site == 'YouTube'
@@ -92,13 +87,16 @@ export class FilmDetailsComponent implements OnInit {
         }
         this.loading = false;
       },
-      error: () => {
+      error: (error: any) => {
         this.loading = false;
+        console.error(error);
         this.router.navigate(['/erreur']);
       },
     });
-
-    this.comments = this.filmsHelper.getCommentsByFilmId(this.filmId);
+    this.filmsHelper.getCommentsByFilmId(this.filmId).subscribe({
+      next: (comments) => (this.comments = comments),
+      error: (error) => console.error(error),
+    });
   }
 
   getDuration(runtime: number | undefined): string {
@@ -118,13 +116,16 @@ export class FilmDetailsComponent implements OnInit {
     return '';
   }
 
-  sendComment($event: {
-    username: string;
-    comment: string;
-    rating: number;
-    date: Date;
-  }) {
-    this.comments?.unshift($event);
-    this.filmsHelper.persistCommentsById(this.filmId, this.comments || []);
+  sendComment($event: Comment) {
+    try {
+      this.filmsHelper.postComment(this.filmId, $event).subscribe();
+      this.filmsHelper.openSnackBar('Commentaire ajouté avec succès !', 'OK !');
+      this.comments.unshift($event);
+    } catch (error) {
+      this.filmsHelper.openSnackBar(
+        "Une erreur s'est produite lors de l'ajout de votre commentaire",
+        'OK !'
+      );
+    }
   }
 }

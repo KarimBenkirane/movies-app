@@ -4,11 +4,11 @@
   </div>
   <div class="comment-content">
     <strong class="username"
-      >{{ comment.username }}
+      >{{ comment.author }}
       <span class="date">
         le <em> {{ comment.date | date : "d/M/yy 'à' h:mm a" }} </em>
       </span></strong
     >
-    <p class="text-content">{{ comment.comment }}</p>
+    <p class="text-content">{{ comment.content }}</p>
   </div>
 </div>

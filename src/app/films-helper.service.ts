@@ -11,10 +11,6 @@ import { Film } from './models/Film';
 export class FilmsHelperService {
   favoriteFilms: Film[] = [];
   films: Film[] = [];
-  comments: Array<{
-    idFilm: number;
-    comments: Comment[];
-  }> = [];
   snackBar = inject(MatSnackBar);
 
   API_KEY = 'c64f1b9081abb640667ac4fe9fd0cf9b';
@@ -63,22 +59,17 @@ export class FilmsHelperService {
     );
   }
 
-  getCommentsByFilmId(id: number): Comment[] {
-    // Find comments for the given film ID
-    let entry = this.comments.find((elt) => elt.idFilm === id);
-
-    // If no comments exist for the film, create an entry with an empty comments array
-    if (!entry) {
-      entry = { idFilm: id, comments: [] };
-      this.comments.push(entry);
-    }
-
-    // Return the comments array (which is empty if it was just created)
-    return entry.comments;
+  getCommentsByFilmId(filmId: number): Observable<Comment[]> {
+    return this.httpClient.get<Comment[]>(
+      'http://localhost:8080/api/comments/' + filmId
+    );
   }
 
-  persistCommentsById(id: number, comments: Comment[]) {
-    this.comments.find((elt) => elt.idFilm === id)!.comments = comments;
+  postComment(filmId: number, comment: Comment): Observable<Comment> {
+    return this.httpClient.post<Comment>(
+      'http://localhost:8080/api/comments/' + filmId,
+      comment
+    );
   }
 
   searchFilms(title: string): Observable<any> {

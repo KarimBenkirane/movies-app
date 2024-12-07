@@ -53,9 +53,6 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit(): void {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      this.authService.loadFromStorage();
-    }
     this.loading = true;
     this.searchSubscription = this.searchSubject
       .pipe(

@@ -1,6 +1,7 @@
 export interface Comment {
-  username: string;
-  comment: string;
-  rating: number;
+  id?: number;
+  author: string;
+  content: string;
   date: Date;
+  film_id: number;
 }

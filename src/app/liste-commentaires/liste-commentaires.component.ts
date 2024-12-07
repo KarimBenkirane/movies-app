@@ -10,5 +10,5 @@ import { Comment } from '../models/Comment';
   styleUrl: './liste-commentaires.component.css',
 })
 export class ListeCommentairesComponent {
-  @Input() comments: Comment[] | undefined = [];
+  @Input() comments: Comment[] = [];
 }

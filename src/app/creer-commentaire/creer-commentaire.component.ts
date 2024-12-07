@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +19,7 @@ export class CreerCommentaireComponent {
   email: string = this.authService.email;
   comment: string = '';
   filmsHelper = inject(FilmsHelperService);
+  @Input() filmId!: number;
 
   @Output() onSendComment = new EventEmitter<Comment>();
 
@@ -40,15 +41,13 @@ export class CreerCommentaireComponent {
     }
 
     const comment: Comment = {
-      username: this.email.trim(),
-      comment: this.comment.trim(),
-      rating: 2,
+      author: this.email.trim(),
+      content: this.comment.trim(),
       date: new Date(),
+      film_id: this.filmId,
     };
 
     this.onSendComment.emit(comment);
-
-    this.filmsHelper.openSnackBar('Commentaire ajouté avec succès !', 'OK !');
 
     // Réinitialisation des champs
     this.comment = '';
