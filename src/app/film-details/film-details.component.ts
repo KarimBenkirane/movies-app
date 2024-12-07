@@ -66,13 +66,15 @@ export class FilmDetailsComponent implements OnInit {
       film: this.filmsHelper.getFilmById(this.filmId),
       credits: this.filmsHelper.getFilmCreditsById(this.filmId),
       trailer: this.filmsHelper.getTrailerById(this.filmId),
+      comments: this.filmsHelper.getCommentsByFilmId(this.filmId),
     }).subscribe({
-      next: ({ film, credits, trailer }) => {
+      next: ({ film, credits, trailer, comments }) => {
         this.film = film;
         this.cast = credits.cast;
         this.actors = this.cast.filter(
           (elt) => elt.known_for_department === 'Acting'
         );
+        this.comments = comments;
 
         const trailerItem = trailer.results.find(
           (elt: any) =>
@@ -92,10 +94,6 @@ export class FilmDetailsComponent implements OnInit {
         console.error(error);
         this.router.navigate(['/erreur']);
       },
-    });
-    this.filmsHelper.getCommentsByFilmId(this.filmId).subscribe({
-      next: (comments) => (this.comments = comments),
-      error: (error) => console.error(error),
     });
   }
 
