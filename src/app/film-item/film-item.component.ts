@@ -10,6 +10,7 @@ import {
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../auth.service';
+import { FilmsHelperService } from '../films-helper.service';
 import { Film } from '../models/Film';
 
 @Component({
@@ -25,6 +26,7 @@ export class FilmItemComponent {
   @Output() toggledFavorite = new EventEmitter();
 
   @Input() favorite: boolean = false;
+  filmsHelper = inject(FilmsHelperService);
 
   faStar = faStar;
   faHeartSolid = faHeartSolid;
@@ -40,19 +42,17 @@ export class FilmItemComponent {
     this.router.navigate(['/details', filmId]);
   }
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000,
-    });
-  }
-
   toggleFavorite(film: Film) {
+    if (!this.authService.isLoggedIn) {
+      this.router.navigate(['/connexion']);
+      return;
+    }
     this.toggledFavorite.emit(film);
     this.favorite = !this.favorite;
     if (this.favorite) {
-      this.openSnackBar('Film ajouté aux favoris !', 'OK !');
+      this.filmsHelper.openSnackBar('Film ajouté aux favoris !', 'OK !');
     } else {
-      this.openSnackBar('Film retiré des favoris !', 'OK !');
+      this.filmsHelper.openSnackBar('Film retiré des favoris !', 'OK !');
     }
   }
 }

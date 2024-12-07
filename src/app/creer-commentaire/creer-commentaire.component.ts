@@ -1,9 +1,9 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../auth.service';
+import { FilmsHelperService } from '../films-helper.service';
 import { Comment } from '../models/Comment';
 
 @Component({
@@ -18,25 +18,24 @@ export class CreerCommentaireComponent {
   authService = inject(AuthService);
   email: string = this.authService.email;
   comment: string = '';
-
-  private _snackBar = inject(MatSnackBar);
-
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
-    });
-  }
+  filmsHelper = inject(FilmsHelperService);
 
   @Output() onSendComment = new EventEmitter<Comment>();
 
   onSubmit() {
     if (!this.comment) {
-      alert('Veuillez saisir votre commentaire.');
+      this.filmsHelper.openSnackBar(
+        'Veuillez saisir votre commentaire.',
+        'OK !'
+      );
       return;
     }
 
     if (this.comment.length > 300) {
-      alert('Veuillez saisir un commentaire de moins de 300 caractères.');
+      this.filmsHelper.openSnackBar(
+        'Veuillez saisir un commentaire de moins de 300 caractères.',
+        'OK !'
+      );
       return;
     }
 
@@ -49,7 +48,7 @@ export class CreerCommentaireComponent {
 
     this.onSendComment.emit(comment);
 
-    this.openSnackBar('Commentaire ajouté avec succès !', 'OK !');
+    this.filmsHelper.openSnackBar('Commentaire ajouté avec succès !', 'OK !');
 
     // Réinitialisation des champs
     this.comment = '';

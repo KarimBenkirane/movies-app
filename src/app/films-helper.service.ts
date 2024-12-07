@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Comment } from './models/Comment';
 import { Film } from './models/Film';
@@ -14,6 +15,7 @@ export class FilmsHelperService {
     idFilm: number;
     comments: Comment[];
   }> = [];
+  snackBar = inject(MatSnackBar);
 
   API_KEY = 'c64f1b9081abb640667ac4fe9fd0cf9b';
 
@@ -21,6 +23,12 @@ export class FilmsHelperService {
 
   isFavorite(film: Film): boolean {
     return this.favoriteFilms.some((f) => f.id === film.id);
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
   toggleFavorite(film: Film) {
