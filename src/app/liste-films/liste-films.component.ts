@@ -10,6 +10,7 @@ import {
   Subscription,
   switchMap,
 } from 'rxjs';
+import { AuthService } from '../auth.service';
 import { BorderCardDirective } from '../border-card.directive';
 import { ChargementComponent } from '../chargement/chargement.component';
 import { FilmItemComponent } from '../film-item/film-item.component';
@@ -33,9 +34,10 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class ListeFilmsComponent implements OnInit, OnDestroy {
   @Input() films: Film[] = [];
-  filmsHelper = inject(FilmsHelperService);
-  router = inject(Router);
   @Input() displayFavorites: boolean = false;
+  filmsHelper = inject(FilmsHelperService);
+  authService = inject(AuthService);
+  router = inject(Router);
 
   searchTerm = '';
   private searchSubject: Subject<string> = new Subject<string>();
@@ -51,6 +53,9 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit(): void {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      this.authService.loadFromStorage();
+    }
     this.loading = true;
     this.searchSubscription = this.searchSubject
       .pipe(

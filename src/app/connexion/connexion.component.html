@@ -21,7 +21,13 @@
         required
       />
       <div class="remember-container">
-        <input type="checkbox" id="remember" class="remember" />
+        <input
+          type="checkbox"
+          id="remember"
+          name="remember"
+          class="remember"
+          [(ngModel)]="this.authService.rememberMe"
+        />
         <label for="remember">Se souvenir de moi</label>
       </div>
       <p>

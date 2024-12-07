@@ -6,14 +6,17 @@ import {
   signOut,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   isLoggedIn!: boolean;
+  userId: string = '';
   email: string = '';
-  token: string = '';
+  rememberMe!: boolean;
+  storageService = inject(StorageService);
 
   router = inject(Router);
 
@@ -36,9 +39,14 @@ export class AuthService {
         password
       );
       this.email = email;
-      this.token = userCredential.user.accessToken;
+      this.userId = userCredential.user.uid;
       this.isLoggedIn = true;
-      console.log(this.token);
+      if (this.rememberMe) {
+        this.storageService.setItem('user', {
+          userId: this.userId,
+          email: this.email,
+        });
+      }
       this.router.navigate(['/']);
     } catch (error) {
       this.isLoggedIn = false;
@@ -49,6 +57,16 @@ export class AuthService {
   async logOut() {
     await signOut(this.auth);
     this.isLoggedIn = false;
+    this.storageService.removeItem('user');
     this.router.navigate(['/']);
+  }
+
+  loadFromStorage() {
+    const user = this.storageService.getItem('user');
+    if (user) {
+      this.email = user.email;
+      this.userId = user.userId;
+      this.isLoggedIn = true;
+    }
   }
 }
