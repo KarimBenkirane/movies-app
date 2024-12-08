@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './auth.guard';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { FavoriteFilmsComponent } from './favorite-films/favorite-films.component';
 import { FilmDetailsComponent } from './film-details/film-details.component';
@@ -26,6 +27,7 @@ export const routes: Routes = [
   {
     path: 'favoris',
     component: FavoriteFilmsComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'erreur',
