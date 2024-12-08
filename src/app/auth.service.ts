@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { EventEmitter, inject, Injectable, Output } from '@angular/core';
 import {
   Auth,
   createUserWithEmailAndPassword,
@@ -6,6 +6,7 @@ import {
   signOut,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { FilmsHelperService } from './films-helper.service';
 import { StorageService } from './storage.service';
 
 @Injectable({
@@ -17,6 +18,9 @@ export class AuthService {
   email: string = '';
   rememberMe!: boolean;
   storageService = inject(StorageService);
+  filmsHelper = inject(FilmsHelperService);
+
+  @Output() loggedOut = new EventEmitter();
 
   router = inject(Router);
 
@@ -57,8 +61,11 @@ export class AuthService {
   async logOut() {
     await signOut(this.auth);
     this.isLoggedIn = false;
+    this.userId = '';
+    this.email = '';
     this.storageService.removeItem('user');
     this.router.navigate(['/']);
+    this.loggedOut.emit();
   }
 
   loadFromStorage() {

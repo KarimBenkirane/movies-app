@@ -25,17 +25,13 @@ export class CreerCommentaireComponent {
 
   onSubmit() {
     if (!this.comment) {
-      this.filmsHelper.openSnackBar(
-        'Veuillez saisir votre commentaire.',
-        'OK !'
-      );
+      this.filmsHelper.openSnackBar('Veuillez saisir votre commentaire.');
       return;
     }
 
     if (this.comment.length > 300) {
       this.filmsHelper.openSnackBar(
-        'Veuillez saisir un commentaire de moins de 300 caractères.',
-        'OK !'
+        'Veuillez saisir un commentaire de moins de 300 caractères.'
       );
       return;
     }

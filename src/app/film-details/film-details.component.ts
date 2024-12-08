@@ -116,12 +116,11 @@ export class FilmDetailsComponent implements OnInit {
   sendComment($event: Comment) {
     try {
       this.filmsHelper.postComment(this.filmId, $event).subscribe();
-      this.filmsHelper.openSnackBar('Commentaire ajouté avec succès !', 'OK !');
+      this.filmsHelper.openSnackBar('Commentaire ajouté avec succès !');
       this.comments.unshift($event);
     } catch (error) {
       this.filmsHelper.openSnackBar(
-        "Une erreur s'est produite lors de l'ajout de votre commentaire",
-        'OK !'
+        "Une erreur s'est produite lors de l'ajout de votre commentaire"
       );
     }
   }

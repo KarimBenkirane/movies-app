@@ -4,6 +4,7 @@ import {
   EventEmitter,
   inject,
   Input,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -16,6 +17,7 @@ import {
   faHeart as faHeartSolid,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { FilmsHelperService } from '../films-helper.service';
 import { Film } from '../models/Film';
@@ -27,12 +29,12 @@ import { Film } from '../models/Film';
   templateUrl: './film-item.component.html',
   styleUrl: './film-item.component.css',
 })
-export class FilmItemComponent implements OnInit {
+export class FilmItemComponent implements OnInit, OnDestroy {
   @Input() film!: Film;
   baseUrl = 'https://image.tmdb.org/t/p/w500';
   @Output() toggledFavorite = new EventEmitter();
 
-  @Input() favorite!: boolean;
+  favorite!: boolean;
   filmsHelper = inject(FilmsHelperService);
 
   faStar = faStar;
@@ -43,11 +45,26 @@ export class FilmItemComponent implements OnInit {
   authService = inject(AuthService);
   snackBar = inject(MatSnackBar);
 
+  logOutSubscription!: Subscription;
+
   constructor(private router: Router) {}
   ngOnInit(): void {
-    this.filmsHelper
-      .isFavorite(this.authService.userId, this.film.id)
-      .subscribe((result) => (this.favorite = result));
+    if (this.authService.isLoggedIn) {
+      this.filmsHelper
+        .isFavorite(this.authService.userId, this.film.id)
+        .subscribe((result) => (this.favorite = result));
+    } else {
+      this.favorite = false;
+    }
+
+    this.logOutSubscription = this.authService.loggedOut.subscribe(() => {
+      this.favorite = false;
+      this.filmsHelper.openSnackBar('Déconnexion réussie !');
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.logOutSubscription.unsubscribe();
   }
 
   goToDetails(filmId: number) {
@@ -58,17 +75,16 @@ export class FilmItemComponent implements OnInit {
     if (!this.authService.isLoggedIn) {
       this.router.navigate(['/connexion']);
       this.filmsHelper.openSnackBar(
-        "Veuillez vous connecter avant d'ajouter un film à vos favoris !",
-        'OK !'
+        "Veuillez vous connecter avant d'ajouter un film à vos favoris !"
       );
       return;
     }
     this.toggledFavorite.emit({ film, favorite: this.favorite });
     this.favorite = !this.favorite;
     if (this.favorite) {
-      this.filmsHelper.openSnackBar('Film ajouté aux favoris !', 'OK !');
+      this.filmsHelper.openSnackBar('Film ajouté aux favoris !');
     } else {
-      this.filmsHelper.openSnackBar('Film retiré des favoris !', 'OK !');
+      this.filmsHelper.openSnackBar('Film retiré des favoris !');
     }
   }
 }

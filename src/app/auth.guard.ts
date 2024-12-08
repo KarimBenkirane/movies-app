@@ -12,8 +12,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   } else {
     router.navigate(['/connexion']);
     filmsHelper.openSnackBar(
-      'Veuillez vous connecter avant de voir vos favoris !',
-      'OK !'
+      'Veuillez vous connecter avant de voir vos favoris !'
     );
     return false;
   }

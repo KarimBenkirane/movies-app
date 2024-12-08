@@ -68,7 +68,7 @@ export class FilmsHelperService {
     });
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string = 'OK !') {
     this.snackBar.open(message, action, {
       duration: 3000,
     });

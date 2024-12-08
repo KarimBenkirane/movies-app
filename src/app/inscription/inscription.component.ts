@@ -24,53 +24,43 @@ export class InscriptionComponent {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(this.email)) {
       this.filmsHelper.openSnackBar(
-        'Veuillez saisir une adresse email valide !',
-        'OK!'
+        'Veuillez saisir une adresse email valide !'
       );
 
       return;
     }
     if (this.password !== this.confirmPassword) {
-      this.filmsHelper.openSnackBar(
-        'Les mots de passes ne correspondent pas.',
-        'OK!'
-      );
+      this.filmsHelper.openSnackBar('Les mots de passes ne correspondent pas.');
       return;
     }
     if (!this.password || !this.confirmPassword || !this.email) {
-      this.filmsHelper.openSnackBar(
-        'Veuillez ne laisser aucun champ vide !',
-        'OK!'
-      );
+      this.filmsHelper.openSnackBar('Veuillez ne laisser aucun champ vide !');
       return;
     }
     if (this.password.length < 6) {
       this.filmsHelper.openSnackBar(
-        'Veuillez saisir un mot de passe avec au moins 6 caractères',
-        'OK!'
+        'Veuillez saisir un mot de passe avec au moins 6 caractères'
       );
       return;
     }
     try {
       await this.authService.register(this.email, this.password);
       this.filmsHelper.openSnackBar(
-        'Inscription réussie ! Vous pouvez maintenant vous connecter.',
-        'OK!'
+        'Inscription réussie ! Vous pouvez maintenant vous connecter.'
       );
       this.router.navigate(['/connexion']);
     } catch (error: any) {
       console.log(error);
       switch (error.code) {
         case 'auth/email-already-in-use':
-          this.filmsHelper.openSnackBar('Cet email est déjà utilisé.', 'OK!');
+          this.filmsHelper.openSnackBar('Cet email est déjà utilisé.');
           break;
         case 'auth/invalid-email':
-          this.filmsHelper.openSnackBar('Email invalide', 'OK!');
+          this.filmsHelper.openSnackBar('Email invalide');
           break;
         default:
           this.filmsHelper.openSnackBar(
-            "Une erreur s'est produite, veuillez réessayer plus tard.",
-            'OK!'
+            "Une erreur s'est produite, veuillez réessayer plus tard."
           );
       }
       this.password = '';

@@ -53,7 +53,6 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.authService.userId);
     this.loading = true;
     this.searchSubscription = this.searchSubject
       .pipe(

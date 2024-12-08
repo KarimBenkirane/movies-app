@@ -23,24 +23,20 @@ export class ConnexionComponent {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(this.email)) {
       this.filmsHelper.openSnackBar(
-        'Veuillez saisir une adresse email valide !',
-        'OK !'
+        'Veuillez saisir une adresse email valide !'
       );
       return;
     }
     if (!this.email || !this.password) {
-      this.filmsHelper.openSnackBar(
-        'Veuillez ne laisser aucun champ vide !',
-        'OK !'
-      );
+      this.filmsHelper.openSnackBar('Veuillez ne laisser aucun champ vide !');
       return;
     }
     try {
       await this.authService.logIn(this.email, this.password);
+      this.filmsHelper.openSnackBar('Conenxion réussie !');
     } catch (error: any) {
       this.filmsHelper.openSnackBar(
-        "Une erreur s'est produite lors de la tentative de connexion.",
-        'OK !'
+        "Une erreur s'est produite lors de la tentative de connexion."
       );
     }
   }
