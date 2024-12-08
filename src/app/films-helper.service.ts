@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { catchError, forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { Comment } from './models/Comment';
+import { Favorite } from './models/Favorite';
 import { Film } from './models/Film';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FilmsHelperService {
-  favoriteFilms: Film[] = [];
   films: Film[] = [];
   snackBar = inject(MatSnackBar);
 
@@ -17,22 +17,61 @@ export class FilmsHelperService {
 
   constructor(private httpClient: HttpClient) {}
 
-  isFavorite(film: Film): boolean {
-    return this.favoriteFilms.some((f) => f.id === film.id);
+  getFavorites(userId: string): Observable<Film[]> {
+    return this.httpClient
+      .get<Favorite[]>(`http://localhost:8080/api/favorites/user/${userId}`)
+      .pipe(
+        switchMap((favorites) =>
+          forkJoin(
+            favorites.map((favorite) => this.getFilmById(favorite.filmId))
+          )
+        )
+      );
+  }
+
+  isFavorite(userId: string, filmId: number): Observable<boolean> {
+    return this.httpClient
+      .get<Favorite>(
+        `http://localhost:8080/api/favorites/user/${userId}/film/${filmId}`
+      )
+      .pipe(
+        map((favorite) => !!favorite),
+        catchError(() => of(false))
+      );
+  }
+
+  addToFavorites(favorite: Favorite): Observable<Favorite> {
+    return this.httpClient.post<Favorite>(
+      `http://localhost:8080/api/favorites/add`,
+      favorite
+    );
+  }
+
+  removeFromFavorites(userId: string, filmId: number): Observable<Favorite> {
+    return this.httpClient.delete<Favorite>(
+      `http://localhost:8080/api/favorites/user/${userId}/film/${filmId}`
+    );
+  }
+
+  toggleFavorite(userId: string, filmId: number): void {
+    this.isFavorite(userId, filmId).subscribe({
+      next: (result) => {
+        if (result) {
+          this.removeFromFavorites(userId, filmId).subscribe();
+        } else {
+          this.addToFavorites({ userId: userId, filmId: filmId }).subscribe();
+        }
+      },
+      error: (err) => {
+        console.error('Error toggling favorite:', err);
+      },
+    });
   }
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
-      duration: 2000,
+      duration: 3000,
     });
-  }
-
-  toggleFavorite(film: Film) {
-    if (this.favoriteFilms.some((f) => f.id === film.id)) {
-      this.favoriteFilms = this.favoriteFilms.filter((elt) => elt != film);
-    } else {
-      this.favoriteFilms.push(film);
-    }
   }
 
   getAllFilms(): Observable<any> {

@@ -53,10 +53,11 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit(): void {
+    console.log(this.authService.userId);
     this.loading = true;
     this.searchSubscription = this.searchSubject
       .pipe(
-        debounceTime(500),
+        debounceTime(1000),
         distinctUntilChanged(),
         switchMap((term) => {
           this.loading = true;
@@ -87,8 +88,14 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
     if (!this.displayFavorites) {
       this.searchSubject.next('');
     } else {
-      this.films = this.filmsHelper.favoriteFilms;
-      this.loading = false;
+      if (this.authService.userId) {
+        this.filmsHelper
+          .getFavorites(this.authService.userId)
+          .subscribe((favorites) => {
+            this.films = favorites;
+            this.loading = false;
+          });
+      }
     }
   }
 
@@ -96,10 +103,14 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
     this.searchSubscription.unsubscribe();
   }
 
-  toggleFavorite(film: Film) {
-    this.filmsHelper.toggleFavorite(film);
+  toggleFavorite(film: Film, favorite: boolean) {
+    this.filmsHelper.toggleFavorite(this.authService.userId, film.id);
     if (this.displayFavorites) {
-      this.films = this.filmsHelper.favoriteFilms;
+      if (favorite) {
+        this.films = this.films.filter((elt) => elt.id != film.id);
+      } else {
+        this.films.push(film);
+      }
     }
   }
 

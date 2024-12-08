@@ -1,7 +1,4 @@
-<app-navbar
-  [favCount]="this.filmsHelper.favoriteFilms.length"
-  (onClearSearch)="resetSearch()"
-></app-navbar>
+<app-navbar [favCount]="10" (onClearSearch)="resetSearch()"></app-navbar>
 
 @if(!this.loading) { @if(!this.displayFavorites) {
 <div class="search-container">
@@ -28,10 +25,10 @@
 <div class="film-container">
   @for (film of films; track film.id) {
   <app-film-item
-    (toggledFavorite)="toggleFavorite(film)"
+    (toggledFavorite)="toggleFavorite(film, $event.favorite)"
     appBorderCard
     [film]="film"
-    [favorite]="this.filmsHelper.isFavorite(film)"
+    [favorite]="false"
   ></app-film-item>
   }
 </div>

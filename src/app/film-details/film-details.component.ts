@@ -75,7 +75,6 @@ export class FilmDetailsComponent implements OnInit {
           (elt) => elt.known_for_department === 'Acting'
         );
         this.comments = comments;
-
         const trailerItem = trailer.results.find(
           (elt: any) =>
             elt.type === 'Trailer' && elt.official && elt.site == 'YouTube'
