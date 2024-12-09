@@ -1,7 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, forkJoin, map, Observable, of, switchMap } from 'rxjs';
+import {
+  catchError,
+  forkJoin,
+  map,
+  Observable,
+  of,
+  Subject,
+  switchMap,
+} from 'rxjs';
 import { Comment } from './models/Comment';
 import { Favorite } from './models/Favorite';
 import { Film } from './models/Film';
@@ -15,17 +23,27 @@ export class FilmsHelperService {
 
   API_KEY = 'c64f1b9081abb640667ac4fe9fd0cf9b';
 
+  updateCount = new Subject<boolean>();
+  update$ = this.updateCount.asObservable();
+
   constructor(private httpClient: HttpClient) {}
 
+  getFavCount(userId: string): Observable<number> {
+    return this.getFavorites(userId).pipe(map((elt) => elt.length));
+  }
   getFavorites(userId: string): Observable<Film[]> {
     return this.httpClient
       .get<Favorite[]>(`http://localhost:8080/api/favorites/user/${userId}`)
       .pipe(
-        switchMap((favorites) =>
-          forkJoin(
-            favorites.map((favorite) => this.getFilmById(favorite.filmId))
-          )
-        )
+        switchMap((favorites) => {
+          if (favorites.length > 0) {
+            return forkJoin(
+              favorites.map((favorite) => this.getFilmById(favorite.filmId))
+            );
+          } else {
+            return of([]);
+          }
+        })
       );
   }
 
@@ -53,18 +71,26 @@ export class FilmsHelperService {
     );
   }
 
-  toggleFavorite(userId: string, filmId: number): void {
-    this.isFavorite(userId, filmId).subscribe({
-      next: (result) => {
-        if (result) {
-          this.removeFromFavorites(userId, filmId).subscribe();
-        } else {
-          this.addToFavorites({ userId: userId, filmId: filmId }).subscribe();
-        }
-      },
-      error: (err) => {
-        console.error('Error toggling favorite:', err);
-      },
+  toggleFavorite(userId: string, filmId: number): Observable<void> {
+    return new Observable((observer) => {
+      this.isFavorite(userId, filmId).subscribe({
+        next: (result) => {
+          if (result) {
+            // Remove from favorites
+            this.removeFromFavorites(userId, filmId).subscribe({
+              next: () => observer.next(), // Notify the caller when done
+              error: (err) => observer.error(err), // Handle errors during remove
+            });
+          } else {
+            // Add to favorites
+            this.addToFavorites({ userId: userId, filmId: filmId }).subscribe({
+              next: () => observer.next(), // Notify the caller when done
+              error: (err) => observer.error(err), // Handle errors during add
+            });
+          }
+        },
+        error: (err) => observer.error(err), // Handle errors from the `isFavorite` check
+      });
     });
   }
 

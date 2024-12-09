@@ -88,12 +88,16 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
       this.searchSubject.next('');
     } else {
       if (this.authService.userId) {
-        this.filmsHelper
-          .getFavorites(this.authService.userId)
-          .subscribe((favorites) => {
+        this.filmsHelper.getFavorites(this.authService.userId).subscribe({
+          next: (favorites) => {
             this.films = favorites;
             this.loading = false;
-          });
+          },
+          error: (err) => {
+            console.error(err);
+            this.loading = false;
+          },
+        });
       }
     }
   }
@@ -103,14 +107,18 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   }
 
   toggleFavorite(film: Film, favorite: boolean) {
-    this.filmsHelper.toggleFavorite(this.authService.userId, film.id);
-    if (this.displayFavorites) {
-      if (favorite) {
-        this.films = this.films.filter((elt) => elt.id != film.id);
-      } else {
-        this.films.push(film);
-      }
-    }
+    this.filmsHelper
+      .toggleFavorite(this.authService.userId, film.id)
+      .subscribe(() => {
+        this.filmsHelper.updateCount.next(true);
+        if (this.displayFavorites) {
+          if (favorite) {
+            this.films = this.films.filter((elt) => elt.id != film.id);
+          } else {
+            this.films = [...this.films, film];
+          }
+        }
+      });
   }
 
   searchFilms() {
