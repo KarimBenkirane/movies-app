@@ -35,9 +35,25 @@ export class ConnexionComponent {
       await this.authService.logIn(this.email, this.password);
       this.filmsHelper.openSnackBar('Conenxion réussie !');
     } catch (error: any) {
-      this.filmsHelper.openSnackBar(
-        "Une erreur s'est produite lors de la tentative de connexion."
-      );
+      console.log(error);
+      switch (error.code) {
+        case 'auth/invalid-credential':
+          this.filmsHelper.openSnackBar('Email ou mot de passe incorrect.');
+          break;
+        case 'auth/wrong-password':
+          this.filmsHelper.openSnackBar('Mot de passe incorrect.');
+          break;
+        case 'auth/invalid-email':
+          this.filmsHelper.openSnackBar('Email invalide.');
+          break;
+        case 'auth/user-disabled':
+          this.filmsHelper.openSnackBar('Cet utilisateur a été désactivé.');
+          break;
+        default:
+          this.filmsHelper.openSnackBar(
+            "Une erreur s'est produite, veuillez réessayer plus tard."
+          );
+      }
     }
   }
 }
