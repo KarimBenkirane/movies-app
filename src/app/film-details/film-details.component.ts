@@ -15,7 +15,7 @@ import { ListeCommentairesComponent } from '../liste-commentaires/liste-commenta
 
 import { MatDividerModule } from '@angular/material/divider';
 
-import { forkJoin } from 'rxjs';
+import { catchError, forkJoin, of } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { ChargementComponent } from '../chargement/chargement.component';
 import { Comment } from '../models/Comment';
@@ -64,20 +64,31 @@ export class FilmDetailsComponent implements OnInit {
     this.loading = true;
     forkJoin({
       film: this.filmsHelper.getFilmById(this.filmId),
-      credits: this.filmsHelper.getFilmCreditsById(this.filmId),
-      trailer: this.filmsHelper.getTrailerById(this.filmId),
-      comments: this.filmsHelper.getCommentsByFilmId(this.filmId),
+      credits: this.filmsHelper.getFilmCreditsById(this.filmId).pipe(
+        catchError(() => of({ cast: [] })) // Provide an empty cast
+      ),
+      trailer: this.filmsHelper.getTrailerById(this.filmId).pipe(
+        catchError(() => of({ results: [] })) // Provide empty results
+      ),
+      comments: this.filmsHelper.getCommentsByFilmId(this.filmId).pipe(
+        catchError(() => of([])) // Provide an empty comments array
+      ),
     }).subscribe({
       next: ({ film, credits, trailer, comments }) => {
+        if (!film) {
+          this.router.navigate(['/erreur']);
+          return;
+        }
         this.film = film;
         this.cast = credits.cast;
         this.actors = this.cast.filter(
           (elt) => elt.known_for_department === 'Acting'
         );
         this.comments = comments;
+
         const trailerItem = trailer.results.find(
           (elt: any) =>
-            elt.type === 'Trailer' && elt.official && elt.site == 'YouTube'
+            elt.type === 'Trailer' && elt.official && elt.site === 'YouTube'
         );
         if (trailerItem) {
           this.trailerKey = trailerItem.key;
@@ -90,8 +101,8 @@ export class FilmDetailsComponent implements OnInit {
       },
       error: (error: any) => {
         this.loading = false;
-        console.error(error);
         this.router.navigate(['/erreur']);
+        console.error(error);
       },
     });
   }
