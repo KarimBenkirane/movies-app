@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FilmsHelperService } from '../films-helper.service';
+import { FilmsHelperService } from '../../services/films-helper.service';
 import { ListeFilmsComponent } from '../liste-films/liste-films.component';
 
 @Component({

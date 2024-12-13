@@ -18,8 +18,8 @@ import {
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../auth.service';
-import { FilmsHelperService } from '../films-helper.service';
+import { AuthService } from '../../services/auth.service';
+import { FilmsHelperService } from '../../services/films-helper.service';
 import { Film } from '../models/Film';
 
 @Component({

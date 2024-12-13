@@ -10,11 +10,11 @@ import {
   Subscription,
   switchMap,
 } from 'rxjs';
-import { AuthService } from '../auth.service';
-import { BorderCardDirective } from '../border-card.directive';
+import { BorderCardDirective } from '../../border-card.directive';
+import { AuthService } from '../../services/auth.service';
+import { FilmsHelperService } from '../../services/films-helper.service';
 import { ChargementComponent } from '../chargement/chargement.component';
 import { FilmItemComponent } from '../film-item/film-item.component';
-import { FilmsHelperService } from '../films-helper.service';
 import { Film } from '../models/Film';
 import { NavbarComponent } from '../navbar/navbar.component';
 

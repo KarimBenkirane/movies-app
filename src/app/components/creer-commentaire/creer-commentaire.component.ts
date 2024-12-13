@@ -2,8 +2,8 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from '../auth.service';
-import { FilmsHelperService } from '../films-helper.service';
+import { AuthService } from '../../services/auth.service';
+import { FilmsHelperService } from '../../services/films-helper.service';
 import { Comment } from '../models/Comment';
 
 @Component({

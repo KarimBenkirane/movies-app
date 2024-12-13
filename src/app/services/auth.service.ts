@@ -8,7 +8,6 @@ import {
 import { Router } from '@angular/router';
 import { FilmsHelperService } from './films-helper.service';
 import { StorageService } from './storage.service';
-
 @Injectable({
   providedIn: 'root',
 })

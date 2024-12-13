@@ -8,8 +8,8 @@ import {
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../auth.service';
-import { FilmsHelperService } from '../films-helper.service';
+import { AuthService } from '../../services/auth.service';
+import { FilmsHelperService } from '../../services/films-helper.service';
 
 @Component({
   selector: 'app-navbar',

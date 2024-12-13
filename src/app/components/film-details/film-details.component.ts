@@ -4,7 +4,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { FilmsHelperService } from '../films-helper.service';
+import { FilmsHelperService } from '../../services/films-helper.service';
 import { ListeActeursComponent } from '../liste-acteurs/liste-acteurs.component';
 import { Cast } from '../models/Cast';
 import { Film } from '../models/Film';
@@ -16,7 +16,7 @@ import { ListeCommentairesComponent } from '../liste-commentaires/liste-commenta
 import { MatDividerModule } from '@angular/material/divider';
 
 import { catchError, forkJoin, of } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { ChargementComponent } from '../chargement/chargement.component';
 import { Comment } from '../models/Comment';
 

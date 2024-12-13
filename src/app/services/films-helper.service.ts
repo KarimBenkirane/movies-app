@@ -10,9 +10,9 @@ import {
   Subject,
   switchMap,
 } from 'rxjs';
-import { Comment } from './models/Comment';
-import { Favorite } from './models/Favorite';
-import { Film } from './models/Film';
+import { Comment } from '../components/models/Comment';
+import { Favorite } from '../components/models/Favorite';
+import { Film } from '../components/models/Film';
 
 @Injectable({
   providedIn: 'root',

@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { FilmsHelperService } from '../films-helper.service';
+import { AuthService } from '../../services/auth.service';
+import { FilmsHelperService } from '../../services/films-helper.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({

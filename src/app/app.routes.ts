@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './auth.guard';
-import { ConnexionComponent } from './connexion/connexion.component';
-import { FavoriteFilmsComponent } from './favorite-films/favorite-films.component';
-import { FilmDetailsComponent } from './film-details/film-details.component';
-import { InscriptionComponent } from './inscription/inscription.component';
-import { ListeFilmsComponent } from './liste-films/liste-films.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ConnexionComponent } from './components/connexion/connexion.component';
+import { FavoriteFilmsComponent } from './components/favorite-films/favorite-films.component';
+import { FilmDetailsComponent } from './components/film-details/film-details.component';
+import { InscriptionComponent } from './components/inscription/inscription.component';
+import { ListeFilmsComponent } from './components/liste-films/liste-films.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
