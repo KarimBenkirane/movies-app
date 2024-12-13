@@ -52,6 +52,7 @@ export class AuthService {
         });
       }
       this.router.navigate(['/']);
+      this.filmsHelper.openSnackBar('Connexion réussie !');
     } catch (error) {
       this.isLoggedIn = false;
       throw error;
@@ -64,6 +65,7 @@ export class AuthService {
     this.userId = '';
     this.email = '';
     this.storageService.removeItem('user');
+    this.filmsHelper.openSnackBar('Déconnexion réussie !');
     this.router.navigate(['/']);
     this.loggedOut.emit();
   }

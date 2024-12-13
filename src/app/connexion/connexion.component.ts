@@ -33,7 +33,6 @@ export class ConnexionComponent {
     }
     try {
       await this.authService.logIn(this.email, this.password);
-      this.filmsHelper.openSnackBar('Conenxion réussie !');
     } catch (error: any) {
       console.log(error);
       switch (error.code) {

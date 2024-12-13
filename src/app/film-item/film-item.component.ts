@@ -59,7 +59,6 @@ export class FilmItemComponent implements OnInit, OnDestroy {
 
     this.logOutSubscription = this.authService.loggedOut.subscribe(() => {
       this.favorite = false;
-      this.filmsHelper.openSnackBar('Déconnexion réussie !');
     });
   }
 
