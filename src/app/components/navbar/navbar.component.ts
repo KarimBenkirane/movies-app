@@ -9,6 +9,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { FavoritesService } from '../../services/favorites.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
 
 @Component({
@@ -20,6 +21,7 @@ import { FilmsHelperService } from '../../services/films-helper.service';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   filmsHelper = inject(FilmsHelperService);
+  favoritesService = inject(FavoritesService);
   authService: AuthService = inject(AuthService);
   router = inject(Router);
 
@@ -40,7 +42,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
   updateCount() {
     if (this.authService.userId) {
-      this.filmsHelper
+      this.favoritesService
         .getFavCount(this.authService.userId)
         .subscribe((result) => (this.favCount = result));
     }

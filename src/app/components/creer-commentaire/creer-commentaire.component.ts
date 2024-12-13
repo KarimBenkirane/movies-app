@@ -1,8 +1,9 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth.service';
+import { CommentsService } from '../../services/comments.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
 import { Comment } from '../models/Comment';
 
@@ -19,9 +20,8 @@ export class CreerCommentaireComponent {
   email: string = this.authService.email;
   comment: string = '';
   filmsHelper = inject(FilmsHelperService);
+  commentsService = inject(CommentsService);
   @Input() filmId!: number;
-
-  @Output() onSendComment = new EventEmitter<Comment>();
 
   onSubmit() {
     if (!this.comment) {
@@ -42,9 +42,7 @@ export class CreerCommentaireComponent {
       date: new Date(),
       film_id: this.filmId,
     };
-
-    this.onSendComment.emit(comment);
-
+    this.commentsService.postCommSubject.next(comment);
     // Réinitialisation des champs
     this.comment = '';
   }

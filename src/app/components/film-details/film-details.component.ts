@@ -18,7 +18,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { catchError, forkJoin, of } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { ChargementComponent } from '../chargement/chargement.component';
-import { Comment } from '../models/Comment';
 
 @Component({
   selector: 'app-film-details',
@@ -51,8 +50,6 @@ export class FilmDetailsComponent implements OnInit {
 
   authService = inject(AuthService);
 
-  comments: Comment[] = [];
-
   faStar = faStar;
 
   loading!: boolean;
@@ -70,11 +67,8 @@ export class FilmDetailsComponent implements OnInit {
       trailer: this.filmsHelper.getTrailerById(this.filmId).pipe(
         catchError(() => of({ results: [] })) // Provide empty results
       ),
-      comments: this.filmsHelper.getCommentsByFilmId(this.filmId).pipe(
-        catchError(() => of([])) // Provide an empty comments array
-      ),
     }).subscribe({
-      next: ({ film, credits, trailer, comments }) => {
+      next: ({ film, credits, trailer }) => {
         if (!film) {
           this.router.navigate(['/erreur']);
           return;
@@ -84,7 +78,6 @@ export class FilmDetailsComponent implements OnInit {
         this.actors = this.cast.filter(
           (elt) => elt.known_for_department === 'Acting'
         );
-        this.comments = comments;
 
         const trailerItem = trailer.results.find(
           (elt: any) =>
@@ -122,17 +115,5 @@ export class FilmDetailsComponent implements OnInit {
       return genreNames.join(', ');
     }
     return '';
-  }
-
-  sendComment($event: Comment) {
-    try {
-      this.filmsHelper.postComment(this.filmId, $event).subscribe();
-      this.filmsHelper.openSnackBar('Commentaire ajouté avec succès !');
-      this.comments.unshift($event);
-    } catch (error) {
-      this.filmsHelper.openSnackBar(
-        "Une erreur s'est produite lors de l'ajout de votre commentaire"
-      );
-    }
   }
 }

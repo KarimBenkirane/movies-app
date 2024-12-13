@@ -1,5 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
+import { Subscription } from 'rxjs';
+import { CommentsService } from '../../services/comments.service';
+import { FilmsHelperService } from '../../services/films-helper.service';
 import { CommentaireItemComponent } from '../commentaire-item/commentaire-item.component';
 import { Comment } from '../models/Comment';
 @Component({
@@ -9,6 +12,32 @@ import { Comment } from '../models/Comment';
   templateUrl: './liste-commentaires.component.html',
   styleUrl: './liste-commentaires.component.css',
 })
-export class ListeCommentairesComponent {
-  @Input() comments: Comment[] = [];
+export class ListeCommentairesComponent implements OnInit, OnDestroy {
+  comments: Comment[] = [];
+  @Input() filmId!: number;
+  filmsHelper = inject(FilmsHelperService);
+  commentsService = inject(CommentsService);
+  postCommSubscripiton!: Subscription;
+  ngOnInit(): void {
+    this.postCommSubscripiton = this.commentsService.postComm$.subscribe(
+      (comm) => {
+        this.commentsService.postComment(this.filmId, comm).subscribe({
+          next: () => {
+            this.comments.unshift(comm);
+          },
+          error: () => {
+            this.filmsHelper.openSnackBar(
+              "Une erreur s'est produite lors de la publication du commentaire."
+            );
+          },
+        });
+      }
+    );
+    this.commentsService.getCommentsByFilmId(this.filmId).subscribe((comms) => {
+      this.comments = comms;
+    });
+  }
+  ngOnDestroy(): void {
+    this.postCommSubscripiton.unsubscribe();
+  }
 }

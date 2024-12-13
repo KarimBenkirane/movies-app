@@ -19,6 +19,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { FavoritesService } from '../../services/favorites.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
 import { Film } from '../models/Film';
 
@@ -43,6 +44,7 @@ export class FilmItemComponent implements OnInit, OnDestroy {
   faEllipsis = faEllipsis;
 
   authService = inject(AuthService);
+  favoritesService = inject(FavoritesService);
   snackBar = inject(MatSnackBar);
 
   logOutSubscription!: Subscription;
@@ -50,7 +52,7 @@ export class FilmItemComponent implements OnInit, OnDestroy {
   constructor(private router: Router) {}
   ngOnInit(): void {
     if (this.authService.isLoggedIn) {
-      this.filmsHelper
+      this.favoritesService
         .isFavorite(this.authService.userId, this.film.id)
         .subscribe((result) => (this.favorite = result));
     } else {

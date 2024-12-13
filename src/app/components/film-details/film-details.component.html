@@ -60,14 +60,12 @@
 <div class="comment-section">
   <h3>Espace commentaires</h3>
   @if(this.authService.isLoggedIn) {
-  <app-creer-commentaire
-    [filmId]="this.filmId"
-    (onSendComment)="sendComment($event)"
-  ></app-creer-commentaire>
+  <app-creer-commentaire [filmId]="this.filmId"></app-creer-commentaire>
   } @else {
   <p>Veuillez vous connecter afin de poster un commentaire.</p>
-  } @if(this.comments.length !== 0) { <mat-divider></mat-divider>}
-  <app-liste-commentaires [comments]="this.comments"></app-liste-commentaires>
+  }
+  <mat-divider></mat-divider>
+  <app-liste-commentaires [filmId]="this.filmId"></app-liste-commentaires>
 </div>
 }@else {
 <app-chargement></app-chargement>

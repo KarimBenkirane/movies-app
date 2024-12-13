@@ -12,6 +12,7 @@ import {
 } from 'rxjs';
 import { BorderCardDirective } from '../../border-card.directive';
 import { AuthService } from '../../services/auth.service';
+import { FavoritesService } from '../../services/favorites.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
 import { ChargementComponent } from '../chargement/chargement.component';
 import { FilmItemComponent } from '../film-item/film-item.component';
@@ -36,6 +37,7 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   @Input() films: Film[] = [];
   @Input() displayFavorites: boolean = false;
   filmsHelper = inject(FilmsHelperService);
+  favoritesService = inject(FavoritesService);
   authService = inject(AuthService);
   router = inject(Router);
 
@@ -88,7 +90,7 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
       this.searchSubject.next('');
     } else {
       if (this.authService.userId) {
-        this.filmsHelper.getFavorites(this.authService.userId).subscribe({
+        this.favoritesService.getFavorites(this.authService.userId).subscribe({
           next: (favorites) => {
             this.films = favorites;
             this.loading = false;
@@ -107,7 +109,7 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   }
 
   toggleFavorite(film: Film, favorite: boolean) {
-    this.filmsHelper
+    this.favoritesService
       .toggleFavorite(this.authService.userId, film.id)
       .subscribe(() => {
         this.filmsHelper.updateCount.next(true);
