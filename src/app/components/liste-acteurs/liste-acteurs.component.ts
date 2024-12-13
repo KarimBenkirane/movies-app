@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { CastService } from '../../services/cast.service';
 import { ActeurItemComponent } from '../acteur-item/acteur-item.component';
 import { Cast } from '../models/Cast';
 
@@ -9,6 +10,18 @@ import { Cast } from '../models/Cast';
   templateUrl: './liste-acteurs.component.html',
   styleUrl: './liste-acteurs.component.css',
 })
-export class ListeActeursComponent {
-  @Input() acteurs: Cast[] = [];
+export class ListeActeursComponent implements OnInit {
+  acteurs: Cast[] = [];
+  castService = inject(CastService);
+  @Input() filmId!: number;
+
+  ngOnInit(): void {
+    this.castService
+      .getFilmCreditsById(this.filmId)
+      .subscribe((credits: any) => {
+        this.acteurs = credits.cast.filter(
+          (elt: any) => elt.known_for_department === 'Acting'
+        );
+      });
+  }
 }

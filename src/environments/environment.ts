@@ -9,4 +9,7 @@ export const environment = {
     appId: '1:73931861717:web:34e56638ace65a2628bc5c',
     measurementId: 'G-TRL3M9K7FZ',
   },
+  tmdb: {
+    api_key: 'c64f1b9081abb640667ac4fe9fd0cf9b',
+  },
 };

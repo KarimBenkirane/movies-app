@@ -42,7 +42,6 @@ export class FilmDetailsComponent implements OnInit {
   router: Router = inject(Router);
   filmId: number = Number(this.activatedRoute.snapshot.params['id']);
   film!: Film | undefined;
-  cast: Cast[] = [];
   actors: Cast[] = [];
   trailerKey: string = '';
   sanitizedTrailerUrl: SafeResourceUrl | null = null;
@@ -61,23 +60,16 @@ export class FilmDetailsComponent implements OnInit {
     this.loading = true;
     forkJoin({
       film: this.filmsHelper.getFilmById(this.filmId),
-      credits: this.filmsHelper.getFilmCreditsById(this.filmId).pipe(
-        catchError(() => of({ cast: [] })) // Provide an empty cast
-      ),
       trailer: this.filmsHelper.getTrailerById(this.filmId).pipe(
         catchError(() => of({ results: [] })) // Provide empty results
       ),
     }).subscribe({
-      next: ({ film, credits, trailer }) => {
+      next: ({ film, trailer }) => {
         if (!film) {
           this.router.navigate(['/erreur']);
           return;
         }
         this.film = film;
-        this.cast = credits.cast;
-        this.actors = this.cast.filter(
-          (elt) => elt.known_for_department === 'Acting'
-        );
 
         const trailerItem = trailer.results.find(
           (elt: any) =>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subject } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { Film } from '../components/models/Film';
 
 @Injectable({
@@ -11,7 +12,7 @@ export class FilmsHelperService {
   films: Film[] = [];
   snackBar = inject(MatSnackBar);
 
-  API_KEY = 'c64f1b9081abb640667ac4fe9fd0cf9b';
+  API_KEY = environment.tmdb.api_key;
 
   updateCount = new Subject<boolean>();
   update$ = this.updateCount.asObservable();
@@ -33,12 +34,6 @@ export class FilmsHelperService {
   getFilmById(id: number): Observable<Film> {
     return this.httpClient.get<Film>(
       `https://api.themoviedb.org/3/movie/${id}?api_key=${this.API_KEY}&language=fr-FR`
-    );
-  }
-
-  getFilmCreditsById(id: number): Observable<any> {
-    return this.httpClient.get<any>(
-      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${this.API_KEY}`
     );
   }
 
