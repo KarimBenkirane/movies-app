@@ -9,6 +9,8 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router, RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { FavoritesService } from '../../services/favorites.service';
@@ -20,7 +22,7 @@ import { Genre } from '../models/Genre';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, MatButtonModule, MatMenuModule],
+  imports: [RouterLink, MatButtonModule, MatMenuModule, FontAwesomeModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -35,6 +37,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   favCount: number = 0;
   @Output() onClearSearch = new EventEmitter();
   countSubscription!: Subscription;
+
+  faChevronDown = faChevronDown;
 
   ngOnInit(): void {
     this.genresService.getGenresList().subscribe((response: any) => {

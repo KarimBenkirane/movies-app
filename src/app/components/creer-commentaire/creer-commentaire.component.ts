@@ -11,7 +11,7 @@ import { Comment } from '../models/Comment';
 @Component({
   selector: 'app-creer-commentaire',
   standalone: true,
-  imports: [FontAwesomeModule, FontAwesomeModule, FormsModule],
+  imports: [FontAwesomeModule, FormsModule],
   templateUrl: './creer-commentaire.component.html',
   styleUrl: './creer-commentaire.component.css',
 })

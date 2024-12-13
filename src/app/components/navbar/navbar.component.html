@@ -9,7 +9,9 @@
     @if(this.authService.isLoggedIn) {<a routerLink="/favoris"
       >Favoris ({{ favCount }}) </a
     >}
-    <a class="genres" [matMenuTriggerFor]="menu">Genres</a>
+    <a class="genres" [matMenuTriggerFor]="menu"
+      >Genres <fa-icon class="icon" [icon]="faChevronDown"></fa-icon
+    ></a>
     <mat-menu #menu="matMenu" yPosition="below">
       @for(genre of genres; track genre.id) {
       <button
