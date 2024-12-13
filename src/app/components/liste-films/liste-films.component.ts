@@ -65,7 +65,6 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
       this.genresService
         .getFilmsByGenreId(genreId)
         .subscribe((response: any) => {
-          console.log(response.results);
           this.films = response.results;
         })
     );
