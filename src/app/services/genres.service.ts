@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Film } from '../components/models/Film';
 
@@ -9,8 +9,6 @@ import { Film } from '../components/models/Film';
 })
 export class GenresService {
   API_KEY = environment.tmdb.api_key;
-  genreSubject = new Subject<number>();
-  genre$ = this.genreSubject.asObservable();
 
   constructor(private httpClient: HttpClient) {}
 

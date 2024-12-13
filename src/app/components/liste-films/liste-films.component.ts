@@ -1,11 +1,12 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import {
   debounceTime,
   distinctUntilChanged,
+  filter,
   Subject,
   Subscription,
   switchMap,
@@ -44,11 +45,11 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   genresService = inject(GenresService);
   authService = inject(AuthService);
   router = inject(Router);
+  activatedRoute = inject(ActivatedRoute);
 
   searchTerm = '';
   private searchSubject: Subject<string> = new Subject<string>();
   private searchSubscription!: Subscription;
-  private genreSubscription!: Subscription;
 
   faX = faX;
 
@@ -56,22 +57,55 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
 
   showResultsMessage: boolean = false;
   showPopularMessage: boolean = true;
+  genreId!: any;
 
   constructor() {}
 
   ngOnInit(): void {
     this.loading = true;
-    this.genreSubscription = this.genresService.genre$.subscribe((genreId) =>
-      this.genresService
-        .getFilmsByGenreId(genreId)
-        .subscribe((response: any) => {
-          this.films = response.results;
-        })
-    );
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.genreId = params['genreId'];
+      if (this.genreId) {
+        this.genresService.getFilmsByGenreId(this.genreId).subscribe({
+          next: (response: any) => {
+            this.films = response.results;
+            this.displayFavorites = false;
+            this.loading = false;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+      }
+    });
+
+    if (!this.displayFavorites && !this.genreId) {
+      this.loading = true;
+      this.filmsHelper.getAllFilms().subscribe((response: any) => {
+        this.films = response.results;
+        this.loading = false;
+      });
+    } else if (this.displayFavorites) {
+      this.loading = true;
+      if (this.authService.userId) {
+        this.favoritesService.getFavorites(this.authService.userId).subscribe({
+          next: (favorites) => {
+            this.films = favorites;
+            this.loading = false;
+          },
+          error: (err) => {
+            console.error(err);
+            this.loading = false;
+          },
+        });
+      }
+    }
+
     this.searchSubscription = this.searchSubject
       .pipe(
         debounceTime(1000),
         distinctUntilChanged(),
+        filter((term) => term.trim() !== ''),
         switchMap((term) => {
           this.loading = true;
           if (term) {
@@ -97,28 +131,10 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
           this.loading = false;
         },
       });
-
-    if (!this.displayFavorites) {
-      this.searchSubject.next('');
-    } else {
-      if (this.authService.userId) {
-        this.favoritesService.getFavorites(this.authService.userId).subscribe({
-          next: (favorites) => {
-            this.films = favorites;
-            this.loading = false;
-          },
-          error: (err) => {
-            console.error(err);
-            this.loading = false;
-          },
-        });
-      }
-    }
   }
 
   ngOnDestroy() {
     this.searchSubscription.unsubscribe();
-    this.genreSubscription.unsubscribe();
   }
 
   toggleFavorite(film: Film, favorite: boolean) {
@@ -142,10 +158,25 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   }
 
   resetSearch() {
-    if (this.searchTerm) {
-      this.loading = true;
-      this.searchTerm = '';
-      this.searchFilms();
-    }
+    console.log('Toggled');
+    this.searchTerm = '';
+    this.loading = true;
+    this.showPopularMessage = true;
+    this.showResultsMessage = false;
+    this.displayFavorites = false;
+    this.genreId = null;
+
+    // Update URL with a reset search query (genreId removed)
+    this.router.navigate(['/'], {
+      queryParams: { genreId: null },
+      queryParamsHandling: 'merge',
+    });
+
+    // Call the API to reset the films
+    this.filmsHelper.getAllFilms().subscribe((response: any) => {
+      this.films = response.results;
+      console.log(this.films);
+      this.loading = false;
+    });
   }
 }

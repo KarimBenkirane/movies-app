@@ -33,9 +33,6 @@ export class FilmsHelperService {
   }
 
   searchFilms(title: string): Observable<any> {
-    if (!title) {
-      return this.getAllFilms();
-    }
     return this.httpClient.get<any>(
       `https://api.themoviedb.org/3/search/movie?api_key=${this.API_KEY}&query=${title}&language=fr-FR&include_adult=false`
     );

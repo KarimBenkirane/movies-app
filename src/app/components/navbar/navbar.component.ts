@@ -62,8 +62,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
   clearSearch() {
-    if (this.router.url === '/') {
-      this.onClearSearch.emit();
-    }
+    this.onClearSearch.emit();
   }
 }

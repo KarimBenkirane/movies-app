@@ -24,6 +24,9 @@ a {
 .links .genres {
   cursor: pointer;
 }
+a.email {
+  cursor: default;
+}
 
 .logout {
   cursor: pointer;

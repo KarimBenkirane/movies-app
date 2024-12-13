@@ -6,28 +6,28 @@
   </div>
   <div class="links">
     <a routerLink="/" (click)="clearSearch()">Accueil</a>
-    @if(this.authService.isLoggedIn) {<a routerLink="/favoris"
-      >Favoris ({{ favCount }}) </a
-    >}
     <a class="genres" [matMenuTriggerFor]="menu"
       >Genres <fa-icon class="icon" [icon]="faChevronDown"></fa-icon
     ></a>
     <mat-menu #menu="matMenu" yPosition="below">
       @for(genre of genres; track genre.id) {
       <button
-        (click)="this.genresService.genreSubject.next(genre.id)"
+        (click)="
+          this.router.navigate(['/'], { queryParams: { genreId: genre.id } })
+        "
         mat-menu-item
       >
         {{ genre.name }}
       </button>
       }
     </mat-menu>
-
-    @if(!this.authService.isLoggedIn) {
+    @if(this.authService.isLoggedIn) {<a routerLink="/favoris"
+      >Favoris ({{ favCount }}) </a
+    >} @if(!this.authService.isLoggedIn) {
     <a routerLink="/connexion">Connexion</a>
     <a routerLink="/inscription">Inscription</a>
     }@else {
-    <a
+    <a class="email"
       >{{ this.authService.email }} (<a
         class="logout"
         (click)="this.authService.logOut()"
