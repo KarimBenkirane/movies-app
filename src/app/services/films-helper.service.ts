@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Film } from '../components/models/Film';
 
@@ -10,20 +9,10 @@ import { Film } from '../components/models/Film';
 })
 export class FilmsHelperService {
   films: Film[] = [];
-  snackBar = inject(MatSnackBar);
 
   API_KEY = environment.tmdb.api_key;
 
-  updateCount = new Subject<boolean>();
-  update$ = this.updateCount.asObservable();
-
   constructor(private httpClient: HttpClient) {}
-
-  openSnackBar(message: string, action: string = 'OK !') {
-    this.snackBar.open(message, action, {
-      duration: 3000,
-    });
-  }
 
   getAllFilms(): Observable<any> {
     return this.httpClient.get<any>(

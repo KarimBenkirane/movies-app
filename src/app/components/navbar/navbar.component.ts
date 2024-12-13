@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
+import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,6 +22,7 @@ import { FilmsHelperService } from '../../services/films-helper.service';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   filmsHelper = inject(FilmsHelperService);
+  uiService = inject(UiService);
   favoritesService = inject(FavoritesService);
   authService: AuthService = inject(AuthService);
   router = inject(Router);
@@ -31,7 +33,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.updateCount();
-    this.countSubscription = this.filmsHelper.update$.subscribe((result) => {
+    this.countSubscription = this.uiService.update$.subscribe((result) => {
       if (result) {
         this.updateCount();
       }

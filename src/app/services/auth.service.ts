@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { FilmsHelperService } from './films-helper.service';
 import { StorageService } from './storage.service';
+import { UiService } from './ui.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,6 +19,7 @@ export class AuthService {
   rememberMe!: boolean;
   storageService = inject(StorageService);
   filmsHelper = inject(FilmsHelperService);
+  uiService = inject(UiService);
 
   @Output() loggedOut = new EventEmitter();
 
@@ -50,8 +52,6 @@ export class AuthService {
           email: this.email,
         });
       }
-      this.router.navigate(['/']);
-      this.filmsHelper.openSnackBar('Connexion réussie !');
     } catch (error) {
       this.isLoggedIn = false;
       throw error;
@@ -64,7 +64,7 @@ export class AuthService {
     this.userId = '';
     this.email = '';
     this.storageService.removeItem('user');
-    this.filmsHelper.openSnackBar('Déconnexion réussie !');
+    this.uiService.openSnackBar('Déconnexion réussie !');
     this.router.navigate(['/']);
     this.loggedOut.emit();
   }

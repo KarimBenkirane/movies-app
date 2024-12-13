@@ -3,6 +3,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { Subscription } from 'rxjs';
 import { CommentsService } from '../../services/comments.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
+import { UiService } from '../../services/ui.service';
 import { CommentaireItemComponent } from '../commentaire-item/commentaire-item.component';
 import { Comment } from '../models/Comment';
 @Component({
@@ -16,6 +17,7 @@ export class ListeCommentairesComponent implements OnInit, OnDestroy {
   comments: Comment[] = [];
   @Input() filmId!: number;
   filmsHelper = inject(FilmsHelperService);
+  uiService = inject(UiService);
   commentsService = inject(CommentsService);
   postCommSubscripiton!: Subscription;
 
@@ -30,7 +32,7 @@ export class ListeCommentairesComponent implements OnInit, OnDestroy {
             this.comments.unshift(comm);
           },
           error: () => {
-            this.filmsHelper.openSnackBar(
+            this.uiService.openSnackBar(
               "Une erreur s'est produite lors de la publication du commentaire."
             );
           },

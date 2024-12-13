@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
+import { UiService } from '../../services/ui.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 @Component({
   selector: 'app-inscription',
@@ -18,34 +19,33 @@ export class InscriptionComponent {
 
   authService: AuthService = inject(AuthService);
   filmsHelper = inject(FilmsHelperService);
+  uiService = inject(UiService);
   router: Router = inject(Router);
 
   async onSubmit() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(this.email)) {
-      this.filmsHelper.openSnackBar(
-        'Veuillez saisir une adresse email valide !'
-      );
+      this.uiService.openSnackBar('Veuillez saisir une adresse email valide !');
 
       return;
     }
     if (this.password !== this.confirmPassword) {
-      this.filmsHelper.openSnackBar('Les mots de passes ne correspondent pas.');
+      this.uiService.openSnackBar('Les mots de passes ne correspondent pas.');
       return;
     }
     if (!this.password || !this.confirmPassword || !this.email) {
-      this.filmsHelper.openSnackBar('Veuillez ne laisser aucun champ vide !');
+      this.uiService.openSnackBar('Veuillez ne laisser aucun champ vide !');
       return;
     }
     if (this.password.length < 6) {
-      this.filmsHelper.openSnackBar(
+      this.uiService.openSnackBar(
         'Veuillez saisir un mot de passe avec au moins 6 caractères'
       );
       return;
     }
     try {
       await this.authService.register(this.email, this.password);
-      this.filmsHelper.openSnackBar(
+      this.uiService.openSnackBar(
         'Inscription réussie ! Vous pouvez maintenant vous connecter.'
       );
       this.router.navigate(['/connexion']);
@@ -53,13 +53,13 @@ export class InscriptionComponent {
       console.log(error);
       switch (error.code) {
         case 'auth/email-already-in-use':
-          this.filmsHelper.openSnackBar('Cet email est déjà utilisé.');
+          this.uiService.openSnackBar('Cet email est déjà utilisé.');
           break;
         case 'auth/invalid-email':
-          this.filmsHelper.openSnackBar('Email invalide');
+          this.uiService.openSnackBar('Email invalide');
           break;
         default:
-          this.filmsHelper.openSnackBar(
+          this.uiService.openSnackBar(
             "Une erreur s'est produite, veuillez réessayer plus tard."
           );
       }

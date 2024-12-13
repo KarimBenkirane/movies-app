@@ -21,6 +21,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
+import { UiService } from '../../services/ui.service';
 import { Film } from '../models/Film';
 
 @Component({
@@ -37,6 +38,7 @@ export class FilmItemComponent implements OnInit, OnDestroy {
 
   favorite!: boolean;
   filmsHelper = inject(FilmsHelperService);
+  uiService = inject(UiService);
 
   faStar = faStar;
   faHeartSolid = faHeartSolid;
@@ -75,7 +77,7 @@ export class FilmItemComponent implements OnInit, OnDestroy {
   toggleFavorite(film: Film) {
     if (!this.authService.isLoggedIn) {
       this.router.navigate(['/connexion']);
-      this.filmsHelper.openSnackBar(
+      this.uiService.openSnackBar(
         "Veuillez vous connecter avant d'ajouter un film à vos favoris !"
       );
       return;
@@ -83,9 +85,9 @@ export class FilmItemComponent implements OnInit, OnDestroy {
     this.toggledFavorite.emit({ film, favorite: this.favorite });
     this.favorite = !this.favorite;
     if (this.favorite) {
-      this.filmsHelper.openSnackBar('Film ajouté aux favoris !');
+      this.uiService.openSnackBar('Film ajouté aux favoris !');
     } else {
-      this.filmsHelper.openSnackBar('Film retiré des favoris !');
+      this.uiService.openSnackBar('Film retiré des favoris !');
     }
   }
 }

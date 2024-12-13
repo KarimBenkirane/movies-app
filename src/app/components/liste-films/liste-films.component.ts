@@ -14,6 +14,7 @@ import { BorderCardDirective } from '../../border-card.directive';
 import { AuthService } from '../../services/auth.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
+import { UiService } from '../../services/ui.service';
 import { ChargementComponent } from '../chargement/chargement.component';
 import { FilmItemComponent } from '../film-item/film-item.component';
 import { Film } from '../models/Film';
@@ -37,6 +38,7 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   @Input() films: Film[] = [];
   @Input() displayFavorites: boolean = false;
   filmsHelper = inject(FilmsHelperService);
+  uiService = inject(UiService);
   favoritesService = inject(FavoritesService);
   authService = inject(AuthService);
   router = inject(Router);
@@ -112,7 +114,7 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
     this.favoritesService
       .toggleFavorite(this.authService.userId, film.id)
       .subscribe(() => {
-        this.filmsHelper.updateCount.next(true);
+        this.uiService.updateCount.next(true);
         if (this.displayFavorites) {
           if (favorite) {
             this.films = this.films.filter((elt) => elt.id != film.id);

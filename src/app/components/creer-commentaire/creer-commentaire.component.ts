@@ -5,6 +5,7 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth.service';
 import { CommentsService } from '../../services/comments.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
+import { UiService } from '../../services/ui.service';
 import { Comment } from '../models/Comment';
 
 @Component({
@@ -20,17 +21,18 @@ export class CreerCommentaireComponent {
   email: string = this.authService.email;
   comment: string = '';
   filmsHelper = inject(FilmsHelperService);
+  uiService = inject(UiService);
   commentsService = inject(CommentsService);
   @Input() filmId!: number;
 
   onSubmit() {
     if (!this.comment) {
-      this.filmsHelper.openSnackBar('Veuillez saisir votre commentaire.');
+      this.uiService.openSnackBar('Veuillez saisir votre commentaire.');
       return;
     }
 
     if (this.comment.length > 300) {
-      this.filmsHelper.openSnackBar(
+      this.uiService.openSnackBar(
         'Veuillez saisir un commentaire de moins de 300 caractères.'
       );
       return;
