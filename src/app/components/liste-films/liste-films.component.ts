@@ -14,6 +14,7 @@ import { BorderCardDirective } from '../../border-card.directive';
 import { AuthService } from '../../services/auth.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
+import { GenresService } from '../../services/genres.service';
 import { UiService } from '../../services/ui.service';
 import { ChargementComponent } from '../chargement/chargement.component';
 import { FilmItemComponent } from '../film-item/film-item.component';
@@ -40,12 +41,14 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   filmsHelper = inject(FilmsHelperService);
   uiService = inject(UiService);
   favoritesService = inject(FavoritesService);
+  genresService = inject(GenresService);
   authService = inject(AuthService);
   router = inject(Router);
 
   searchTerm = '';
   private searchSubject: Subject<string> = new Subject<string>();
   private searchSubscription!: Subscription;
+  private genreSubscription!: Subscription;
 
   faX = faX;
 
@@ -58,6 +61,14 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loading = true;
+    this.genreSubscription = this.genresService.genre$.subscribe((genreId) =>
+      this.genresService
+        .getFilmsByGenreId(genreId)
+        .subscribe((response: any) => {
+          console.log(response.results);
+          this.films = response.results;
+        })
+    );
     this.searchSubscription = this.searchSubject
       .pipe(
         debounceTime(1000),
@@ -108,6 +119,7 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.searchSubscription.unsubscribe();
+    this.genreSubscription.unsubscribe();
   }
 
   toggleFavorite(film: Film, favorite: boolean) {

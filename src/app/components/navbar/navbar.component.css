@@ -21,6 +21,10 @@ a {
   font-size: 1.15rem;
 }
 
+.links .genres {
+  cursor: pointer;
+}
+
 .logout {
   cursor: pointer;
 }

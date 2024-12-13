@@ -1,14 +1,27 @@
 <div class="navbar">
   <div class="title-container">
     <a class="title" routerLink="/" (click)="clearSearch()"
-      ><h2>FilmsList</h2></a
+      ><h2>FilmsApp</h2></a
     >
   </div>
   <div class="links">
     <a routerLink="/" (click)="clearSearch()">Accueil</a>
     @if(this.authService.isLoggedIn) {<a routerLink="/favoris"
       >Favoris ({{ favCount }}) </a
-    >} @if(!this.authService.isLoggedIn) {
+    >}
+    <a class="genres" [matMenuTriggerFor]="menu">Genres</a>
+    <mat-menu #menu="matMenu" yPosition="below">
+      @for(genre of genres; track genre.id) {
+      <button
+        (click)="this.genresService.genreSubject.next(genre.id)"
+        mat-menu-item
+      >
+        {{ genre.name }}
+      </button>
+      }
+    </mat-menu>
+
+    @if(!this.authService.isLoggedIn) {
     <a routerLink="/connexion">Connexion</a>
     <a routerLink="/inscription">Inscription</a>
     }@else {
