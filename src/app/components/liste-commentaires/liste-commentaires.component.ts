@@ -18,7 +18,11 @@ export class ListeCommentairesComponent implements OnInit, OnDestroy {
   filmsHelper = inject(FilmsHelperService);
   commentsService = inject(CommentsService);
   postCommSubscripiton!: Subscription;
+
   ngOnInit(): void {
+    this.commentsService
+      .getCommentsByFilmId(this.filmId)
+      .subscribe((comms) => (this.comments = comms));
     this.postCommSubscripiton = this.commentsService.postComm$.subscribe(
       (comm) => {
         this.commentsService.postComment(this.filmId, comm).subscribe({
@@ -33,9 +37,6 @@ export class ListeCommentairesComponent implements OnInit, OnDestroy {
         });
       }
     );
-    this.commentsService.getCommentsByFilmId(this.filmId).subscribe((comms) => {
-      this.comments = comms;
-    });
   }
   ngOnDestroy(): void {
     this.postCommSubscripiton.unsubscribe();
