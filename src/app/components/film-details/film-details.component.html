@@ -32,7 +32,11 @@
         <em>{{ film?.tagline }}</em>
         <div class="synopsis">
           <h3>Synopsis</h3>
+          @if(film?.overview) {
           <p>{{ film?.overview }}</p>
+          }@else {
+          <p>Pas de synopsis disponible.</p>
+          }
         </div>
       </div>
     </div>

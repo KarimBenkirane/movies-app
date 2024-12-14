@@ -50,6 +50,7 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   searchTerm = '';
   private searchSubject: Subject<string> = new Subject<string>();
   private searchSubscription!: Subscription;
+  private paramSubscription!: Subscription;
 
   faX = faX;
 
@@ -63,21 +64,24 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loading = true;
-    this.activatedRoute.queryParams.subscribe((params) => {
-      this.genreId = params['genreId'];
-      if (this.genreId) {
-        this.genresService.getFilmsByGenreId(this.genreId).subscribe({
-          next: (response: any) => {
-            this.films = response.results;
-            this.displayFavorites = false;
-            this.loading = false;
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
+    this.paramSubscription = this.activatedRoute.queryParams.subscribe(
+      (params) => {
+        this.genreId = params['genreId'];
+        if (this.genreId) {
+          this.loading = true;
+          this.genresService.getFilmsByGenreId(this.genreId).subscribe({
+            next: (response: any) => {
+              this.films = response.results;
+              this.displayFavorites = false;
+              this.loading = false;
+            },
+            error: (err) => {
+              console.log(err);
+            },
+          });
+        }
       }
-    });
+    );
 
     if (!this.displayFavorites && !this.genreId) {
       this.loading = true;
@@ -135,6 +139,7 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.searchSubscription.unsubscribe();
+    this.paramSubscription.unsubscribe();
   }
 
   toggleFavorite(film: Film, favorite: boolean) {
@@ -158,24 +163,16 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   }
 
   resetSearch() {
-    console.log('Toggled');
-    this.searchTerm = '';
+    if (!this.genreId && !this.searchTerm) {
+      return;
+    }
     this.loading = true;
     this.showPopularMessage = true;
     this.showResultsMessage = false;
-    this.displayFavorites = false;
     this.genreId = null;
-
-    // Update URL with a reset search query (genreId removed)
-    this.router.navigate(['/'], {
-      queryParams: { genreId: null },
-      queryParamsHandling: 'merge',
-    });
-
-    // Call the API to reset the films
+    this.searchTerm = '';
     this.filmsHelper.getAllFilms().subscribe((response: any) => {
       this.films = response.results;
-      console.log(this.films);
       this.loading = false;
     });
   }
