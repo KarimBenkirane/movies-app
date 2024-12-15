@@ -18,9 +18,9 @@ export class GenresService {
     );
   }
 
-  getFilmsByGenreId(genreId: number) {
+  getFilmsByGenreId(genreId: number, page: number = 1) {
     return this.httpClient.get<Film[]>(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${this.API_KEY}&with_genres=${genreId}&include_adult=false&language=fr-FR`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${this.API_KEY}&with_genres=${genreId}&include_adult=false&language=fr-FR&page=${page}`
     );
   }
 }

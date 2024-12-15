@@ -60,6 +60,10 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   showPopularMessage: boolean = true;
   genreId!: any;
 
+  totalPages!: number;
+  pageNumber!: number;
+  disableShowMore = false;
+
   constructor() {}
 
   ngOnInit(): void {
@@ -72,6 +76,8 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
           this.genresService.getFilmsByGenreId(this.genreId).subscribe({
             next: (response: any) => {
               this.films = response.results;
+              this.totalPages = response.total_pages;
+              this.pageNumber = 2;
               this.displayFavorites = false;
               this.loading = false;
             },
@@ -86,6 +92,8 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
     if (!this.displayFavorites && !this.genreId) {
       this.loading = true;
       this.filmsHelper.getAllFilms().subscribe((response: any) => {
+        this.totalPages = response.total_pages;
+        this.pageNumber = 2;
         this.films = response.results;
         this.loading = false;
       });
@@ -124,6 +132,8 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (response: any) => {
+          this.totalPages = response.total_pages;
+          this.pageNumber = 2;
           this.films = response.results.filter(
             (elt: Film) =>
               elt.poster_path !== null && elt.vote_count > 0 && elt.overview
@@ -175,5 +185,40 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
       this.films = response.results;
       this.loading = false;
     });
+  }
+
+  loadMore() {
+    this.disableShowMore = true;
+    if (this.genreId) {
+      this.genresService
+        .getFilmsByGenreId(this.genreId, this.pageNumber)
+        .subscribe((response: any) => {
+          this.films = [...this.films, ...response.results];
+          this.pageNumber++;
+          this.disableShowMore = false;
+        });
+    } else if (!this.searchTerm.trim()) {
+      this.filmsHelper
+        .getAllFilms(this.pageNumber)
+        .subscribe((response: any) => {
+          this.films = [...this.films, ...response.results];
+          this.pageNumber++;
+          this.disableShowMore = false;
+        });
+    } else if (this.searchTerm.trim()) {
+      this.filmsHelper
+        .searchFilms(this.searchTerm, this.pageNumber)
+        .subscribe((response: any) => {
+          this.films = [
+            ...this.films,
+            ...response.results.filter(
+              (elt: Film) =>
+                elt.poster_path !== null && elt.vote_count > 0 && elt.overview
+            ),
+          ];
+          this.pageNumber++;
+          this.disableShowMore = false;
+        });
+    }
   }
 }

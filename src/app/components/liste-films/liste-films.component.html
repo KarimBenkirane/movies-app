@@ -31,8 +31,13 @@
   ></app-film-item>
   }
 </div>
-
-@if(this.films.length === 0) {
+@if((totalPages != pageNumber) && !this.displayFavorites ) {
+<div class="load-more">
+  <button [disabled]="this.disableShowMore" (click)="loadMore()">
+    Charger plus de films
+  </button>
+</div>
+} @if(this.films.length === 0) {
 <div class="not-found">
   <h3>Aucun film trouvé !</h3>
 </div>

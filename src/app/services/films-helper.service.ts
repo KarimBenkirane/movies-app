@@ -14,9 +14,9 @@ export class FilmsHelperService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getAllFilms(): Observable<any> {
+  getAllFilms(page: number = 1): Observable<any> {
     return this.httpClient.get<any>(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${this.API_KEY}&language=fr-FR&include_adult=false`
+      `https://api.themoviedb.org/3/movie/popular?api_key=${this.API_KEY}&language=fr-FR&include_adult=false&page=${page}`
     );
   }
 
@@ -32,9 +32,9 @@ export class FilmsHelperService {
     );
   }
 
-  searchFilms(title: string): Observable<any> {
+  searchFilms(title: string, page: number = 1): Observable<any> {
     return this.httpClient.get<any>(
-      `https://api.themoviedb.org/3/search/movie?api_key=${this.API_KEY}&query=${title}&language=fr-FR&include_adult=false`
+      `https://api.themoviedb.org/3/search/movie?api_key=${this.API_KEY}&query=${title}&language=fr-FR&include_adult=false&page=${page}`
     );
   }
 }
