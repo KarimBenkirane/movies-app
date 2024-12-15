@@ -14,7 +14,7 @@
   padding-top: 20px;
   padding-bottom: 30px;
 }
-/* .load-more > button {
+.load-more > button {
   outline: none;
   border: none;
   color: #fff;
@@ -24,7 +24,15 @@
   text-align: center;
   font-size: 1.2rem;
   cursor: pointer;
-} */
+}
+
+.load-more > button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 .search-term {
   padding: 20px 50px 0px 50px;
 }
