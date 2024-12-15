@@ -18,11 +18,11 @@ import {
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { Film } from '../../models/Film';
 import { AuthService } from '../../services/auth.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
 import { UiService } from '../../services/ui.service';
-import { Film } from '../models/Film';
 
 @Component({
   selector: 'app-film-item',

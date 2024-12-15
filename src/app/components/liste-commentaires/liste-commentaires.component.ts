@@ -1,11 +1,11 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { Subscription } from 'rxjs';
+import { Comment } from '../../models/Comment';
 import { CommentsService } from '../../services/comments.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
 import { UiService } from '../../services/ui.service';
 import { CommentaireItemComponent } from '../commentaire-item/commentaire-item.component';
-import { Comment } from '../models/Comment';
 @Component({
   selector: 'app-liste-commentaires',
   standalone: true,

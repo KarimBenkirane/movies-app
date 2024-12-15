@@ -2,11 +2,11 @@ import { Component, inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { Comment } from '../../models/Comment';
 import { AuthService } from '../../services/auth.service';
 import { CommentsService } from '../../services/comments.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
 import { UiService } from '../../services/ui.service';
-import { Comment } from '../models/Comment';
 
 @Component({
   selector: 'app-creer-commentaire',

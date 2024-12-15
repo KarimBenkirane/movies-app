@@ -4,10 +4,10 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { Cast } from '../../models/Cast';
+import { Film } from '../../models/Film';
 import { FilmsHelperService } from '../../services/films-helper.service';
 import { ListeActeursComponent } from '../liste-acteurs/liste-acteurs.component';
-import { Cast } from '../models/Cast';
-import { Film } from '../models/Film';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 import { CreerCommentaireComponent } from '../creer-commentaire/creer-commentaire.component';

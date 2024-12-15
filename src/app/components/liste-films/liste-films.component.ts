@@ -12,6 +12,7 @@ import {
   switchMap,
 } from 'rxjs';
 import { BorderCardDirective } from '../../border-card.directive';
+import { Film } from '../../models/Film';
 import { AuthService } from '../../services/auth.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
@@ -19,7 +20,6 @@ import { GenresService } from '../../services/genres.service';
 import { UiService } from '../../services/ui.service';
 import { ChargementComponent } from '../chargement/chargement.component';
 import { FilmItemComponent } from '../film-item/film-item.component';
-import { Film } from '../models/Film';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
@@ -163,7 +163,7 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
   }
 
   resetSearch() {
-    if (!this.genreId && !this.searchTerm) {
+    if (!this.genreId && !this.searchTerm.trim()) {
       return;
     }
     this.loading = true;

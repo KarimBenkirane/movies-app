@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, forkJoin, map, Observable, of, switchMap } from 'rxjs';
-import { Favorite } from '../components/models/Favorite';
-import { Film } from '../components/models/Film';
+import { Favorite } from '../models/Favorite';
+import { Film } from '../models/Film';
 import { FilmsHelperService } from './films-helper.service';
 
 @Injectable({

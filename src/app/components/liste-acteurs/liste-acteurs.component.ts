@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
+import { Cast } from '../../models/Cast';
 import { CastService } from '../../services/cast.service';
 import { ActeurItemComponent } from '../acteur-item/acteur-item.component';
-import { Cast } from '../models/Cast';
 
 @Component({
   selector: 'app-liste-acteurs',

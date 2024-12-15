@@ -12,12 +12,12 @@ import { Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { Genre } from '../../models/Genre';
 import { AuthService } from '../../services/auth.service';
 import { FavoritesService } from '../../services/favorites.service';
 import { FilmsHelperService } from '../../services/films-helper.service';
 import { GenresService } from '../../services/genres.service';
 import { UiService } from '../../services/ui.service';
-import { Genre } from '../models/Genre';
 
 @Component({
   selector: 'app-navbar',
