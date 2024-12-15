@@ -79,6 +79,9 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
               this.totalPages = response.total_pages;
               this.pageNumber = 2;
               this.displayFavorites = false;
+              this.searchTerm = '';
+              this.showPopularMessage = true;
+              this.showResultsMessage = false;
               this.loading = false;
             },
             error: (err) => {
@@ -183,6 +186,8 @@ export class ListeFilmsComponent implements OnInit, OnDestroy {
     this.searchTerm = '';
     this.filmsHelper.getAllFilms().subscribe((response: any) => {
       this.films = response.results;
+      this.totalPages = response.total_pages;
+      this.pageNumber = 2;
       this.loading = false;
     });
   }

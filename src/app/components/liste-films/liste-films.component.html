@@ -31,7 +31,7 @@
   ></app-film-item>
   }
 </div>
-@if((totalPages != pageNumber) && !this.displayFavorites ) {
+@if((totalPages >= pageNumber) && !this.displayFavorites ) {
 <div class="load-more">
   <button [disabled]="this.disableShowMore" (click)="loadMore()">
     Charger plus de films
