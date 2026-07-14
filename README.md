@@ -1,55 +1,55 @@
-# 🎬 Movies App
+# Movies App
 
-Une application web moderne de découverte et gestion de films développée avec Angular 18, intégrant l'API TMDB (The Movie Database) et Firebase pour l'authentification.
+Application web moderne de découverte et gestion de films développée avec Angular 18, intégrant l'API TMDB (The Movie Database) et Firebase pour l'authentification.
 
 ![Angular](https://img.shields.io/badge/Angular-18.2-red?logo=angular)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.5-blue?logo=typescript)
 ![Firebase](https://img.shields.io/badge/Firebase-11.0-orange?logo=firebase)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple?logo=bootstrap)
 
-## ✨ Fonctionnalités
+## Fonctionnalités
 
-- 🎥 **Catalogue de films** - Parcourir une large collection de films via l'API TMDB
-- 🔍 **Recherche avancée** - Filtrer les films par genre, titre, etc.
-- 📝 **Détails complets** - Informations détaillées sur chaque film (synopsis, casting, etc.)
-- ⭐ **Favoris** - Sauvegarder vos films préférés (nécessite une connexion)
-- 💬 **Commentaires** - Laisser et consulter des avis sur les films
-- 🔐 **Authentification** - Système d'inscription/connexion avec Firebase Auth
-- 🎨 **Interface responsive** - Design moderne avec Angular Material et Bootstrap
-- 🚀 **SSR** - Rendu côté serveur pour de meilleures performances
+- **Catalogue de films** — Parcourir une large collection de films via l'API TMDB
+- **Recherche avancée** — Filtrer les films par genre, titre, etc.
+- **Détails complets** — Informations détaillées sur chaque film (synopsis, casting, etc.)
+- **Favoris** — Sauvegarder vos films préférés (nécessite une connexion)
+- **Commentaires** — Laisser et consulter des avis sur les films
+- **Authentification** — Système d'inscription/connexion avec Firebase Auth
+- **Interface responsive** — Design moderne avec Angular Material et Bootstrap
+- **SSR** — Rendu côté serveur pour de meilleures performances
 
-## 🛠️ Stack Technique
+## Stack Technique
 
 ### Frontend
 
-- **Framework**: Angular 18.2 (Standalone Components)
-- **Langage**: TypeScript 5.5
-- **UI**: Angular Material 18.2 + Bootstrap 5.3
-- **Icônes**: Font Awesome 6.5
-- **Animations**: Angular Animations
-- **Routing**: Angular Router avec guards d'authentification
+- **Framework** : Angular 18.2 (Standalone Components)
+- **Langage** : TypeScript 5.5
+- **UI** : Angular Material 18.2 + Bootstrap 5.3
+- **Icônes** : Font Awesome 6.5
+- **Animations** : Angular Animations
+- **Routing** : Angular Router avec guards d'authentification
 
 ### Backend & Services
 
-- **API Films**: TMDB API
-- **Authentification**: Firebase Authentication
-- **Base de données**: Firebase Firestore
-- **SSR**: Angular Universal / Angular SSR
+- **API Films** : TMDB API
+- **Authentification** : Firebase Authentication
+- **Base de données** : Firebase Firestore
+- **SSR** : Angular Universal / Angular SSR
 
 ### DevOps
 
-- **Containerisation**: Docker + Nginx
-- **Build Tool**: Angular CLI 18.2
-- **Testing**: Jasmine + Karma
+- **Containerisation** : Docker + Nginx
+- **Build Tool** : Angular CLI 18.2
+- **Testing** : Jasmine + Karma
 
-## 📋 Prérequis
+## Prérequis
 
 - Node.js (v18 ou supérieur)
 - npm ou yarn
 - Un compte [TMDB](https://www.themoviedb.org/) pour obtenir une clé API
 - Un projet [Firebase](https://firebase.google.com/) configuré
 
-## 🚀 Installation
+## Installation
 
 1. **Cloner le repository**
 
@@ -95,7 +95,7 @@ npm start
 
 L'application sera accessible sur `http://localhost:4200/`
 
-## 🐳 Docker
+## Docker
 
 Pour déployer l'application avec Docker :
 
@@ -107,7 +107,7 @@ docker build -t movies-app .
 docker run -p 80:80 movies-app
 ```
 
-## 📁 Structure du Projet
+## Structure du Projet
 
 ```
 movies-app/
@@ -141,7 +141,7 @@ movies-app/
 └── README.md
 ```
 
-## 🧪 Tests
+## Tests
 
 ```bash
 # Lancer les tests unitaires
@@ -151,7 +151,7 @@ npm test
 npm run test -- --watch
 ```
 
-## 🏗️ Build
+## Build
 
 ```bash
 # Build de production
